@@ -1,0 +1,7 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+localhost:8080	TRUE	/lab4.cart	FALSE	1999999999	JSESSIONID	8343365B30FAADAA7DE0589B6870CE62
+.pexels.com	TRUE	/	FALSE	1999999999	__cf_bm	dh_UwRU6nw78UOe9gEYwSL8T9PR.bjucec9HXBeE3dQ-1755885269-1.0.1.1-V7KCnzeRgcpQowWQS5uNuxdhei2hqIE.svI95HRYyTH2lJZT8B1NnHwGng_4wYXQVC8KvGItWzhizn1XqKezLW2V6GZbnW3IEC5yMgFGt5Y
+.pexels.com	TRUE	/	FALSE	1999999999	_cfuvid	Om7WR_BB8kWqHksTZIZWiZt6w2zeWNQNtMtlp8uGA7k-1755885269397-0.0.1.1-604800000
+images.pexels.com	TRUE	/	FALSE	1999999999	SameSite	None
+

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from localhost:8080/products by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Aug 2025 17:54:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Products</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; color: white; background: rgba(0, 0, 0, 0.7); }
+    header { background-color: rgba(0, 0, 0, 0.8); padding: 1rem; text-align: center; }
+    header h1 { margin: 0; font-size: 2.5rem; color: white; }
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; padding: 2rem; }
+    .product { border-radius: 8px; overflow: hidden; text-align: center; background: rgba(255, 255, 255, 0.15); color: white; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); transition: transform 0.2s; }
+    .product:hover { transform: scale(1.05); }
+    .product img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
+    .product h3 { margin: 10px 0; font-size: 1.2rem; }
+    .product p { color: #ffcc00; font-size: 1.1rem; font-weight: bold; }
+    .product button { background-color: #007bff; color: white; border: none; padding: 8px 15px; margin-top: 10px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; }
+    .product button:hover { background-color: #0056b3; }
+    nav { margin: 20px 0; text-align: center; }
+    nav a { padding: 10px 15px; background: #007bff; color: white; border-radius: 5px; text-decoration: none; margin: 10px; font-size: 1.2rem; transition: 0.3s; }
+    nav a:hover { background: #0056b3; }
+    video { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <video autoplay loop muted>
+    <source src="https://videos.pexels.com/video-files/9563514/9563514-uhd_2732_1440_25fps.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <header><h1>Browse Products</h1></header>
+
+  <nav>
+    <a href="lab4.frontend/home.html">Home</a>
+    <a href="products.html">Browse Products</a>
+    <a href="lab4.cart/cart.html">View Cart</a>
+  </nav>
+
+  <div class="products">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1619533394727-57d522857f89?q=80&w=1287" alt="Elegant Suit" />
+      <h3>Elegant Suit</h3>
+      <p>CAD $299.99</p>
+      <form data-product='{"id":"1","name":"Elegant Suit","price":299.99,"img":"https://images.unsplash.com/photo-1619533394727-57d522857f89?q=80&w=1287"}' action="lab4.cart/cart.html" method="POST">
+        <input type="hidden" name="productId" value="1" />
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+
+    <div class="product">
+      <img src="https://5.imimg.com/data5/ECOM/Default/2024/7/437244781/VC/HB/II/124918422/omepi-512-500x500.webp" alt="Luxury Watch" />
+      <h3>Luxury Watch</h3>
+      <p>CAD $199.99</p>
+      <form data-product='{"id":"2","name":"Luxury Watch","price":199.99,"img":"https://5.imimg.com/data5/ECOM/Default/2024/7/437244781/VC/HB/II/124918422/omepi-512-500x500.webp"}' action="lab4.cart/cart.html" method="POST">
+        <input type="hidden" name="productId" value="2" />
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+
+    <div class="product">
+      <img src="../media.istockphoto.com/id/963128010/photo/istockphoto-963128010-612x6127671.jpg?s=612x612&w=0&k=20&c=zQt2E3GU7QG87MSJxxmSnh6DYk4KXZih8PvU6n6AH6Q=" alt="Leather Backpack" />
+      <h3>Leather Backpack</h3>
+      <p>CAD $149.99</p>
+      <form data-product='{"id":"3","name":"Leather Backpack","price":149.99,"img":"../media.istockphoto.com/id/963128010/photo/istockphoto-963128010-612x6127671.jpg?s=612x612&w=0&k=20&c=zQt2E3GU7QG87MSJxxmSnh6DYk4KXZih8PvU6n6AH6Q="}' action="lab4.cart/cart.html" method="POST">
+        <input type="hidden" name="productId" value="3" />
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1570993492903-ba4c3088f100?q=80&w=1170&auto=format&fit=crop" alt="Wireless Earbuds" />
+      <h3>Wireless Earbuds</h3>
+      <p>CAD $99.99</p>
+      <form data-product='{"id":"4","name":"Wireless Earbuds","price":99.99,"img":"https://images.unsplash.com/photo-1570993492903-ba4c3088f100?q=80&w=1170&auto=format&fit=crop"}' action="lab4.cart/cart.html" method="POST">
+        <input type="hidden" name="productId" value="4" />
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+
+    <div class="product">
+      <img src="../images.pexels.com/photos/298864/pexels-photo-298864.jpg" alt="Dress Shoes" />
+      <h3>Dress Shoes</h3>
+      <p>CAD $89.99</p>
+      <form data-product='{"id":"5","name":"Dress Shoes","price":89.99,"img":"../images.pexels.com/photos/298864/pexels-photo-298864.jpg"}' action="lab4.cart/cart.html" method="POST">
+        <input type="hidden" name="productId" value="5" />
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tiny cart state for static pages: session-only and cleared on tab close -->
+  <script>
+    (function () {
+      // Intercept all product forms: record item -> go to cart page
+      var forms = document.querySelectorAll('.product form');
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].addEventListener('submit', function (e) {
+          e.preventDefault();
+          try {
+            var payload = JSON.parse(this.getAttribute('data-product'));
+            var cart = JSON.parse(sessionStorage.getItem('cart') || '{}');
+            var id = payload.id;
+            cart[id] = (cart[id] || 0) + 1;
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+          } catch (_) { /* ignore */ }
+          // preserve your UX: still navigate to cart page
+          window.location.href = this.getAttribute('action') || 'lab4.cart/cart.html';
+        });
+      }
+    })();
+  </script>
+</body>
+<!-- Mirrored from localhost:8080/products by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Aug 2025 17:54:28 GMT -->
+</html>

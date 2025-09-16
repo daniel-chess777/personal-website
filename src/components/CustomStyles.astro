@@ -1,0 +1,51 @@
+---
+import '@fontsource/league-spartan';
+---
+
+<style is:inline>
+  :root {
+    /* Font Configuration */
+    --aw-font-sans: 'League Spartan', sans-serif;
+    --aw-font-serif: 'League Spartan', sans-serif;
+    --aw-font-heading: 'League Spartan', sans-serif;
+
+    /* Light Theme Colors */
+    --aw-color-primary: rgb(153, 0, 0);       /* Blood Red */
+    --aw-color-secondary: rgb(102, 0, 0);     /* Darker Blood Red */
+    --aw-color-accent: rgb(204, 0, 0);        /* Slightly brighter red */
+
+    --aw-color-text-heading: rgb(0, 0, 0);
+    --aw-color-text-default: rgb(16, 16, 16);
+    --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-bg-page: rgb(255, 255, 255); /* Not used in dark mode */
+
+    --aw-color-bg-page-dark: rgb(3, 6, 32);
+
+    ::selection {
+      background-color: rgb(153, 0, 0);
+      color: white;
+    }
+  }
+
+  .dark {
+    /* Font Configuration */
+    --aw-font-sans: 'League Spartan', sans-serif;
+    --aw-font-serif: 'League Spartan', sans-serif;
+    --aw-font-heading: 'League Spartan', sans-serif;
+
+    /* Dark Theme Colors */
+    --aw-color-primary: rgb(153, 0, 0);
+    --aw-color-secondary: rgb(102, 0, 0);
+    --aw-color-accent: rgb(204, 0, 0);
+
+    --aw-color-text-heading: rgb(247, 248, 248);
+    --aw-color-text-default: rgb(229, 236, 246);
+    --aw-color-text-muted: rgb(229, 236, 246 / 66%);
+    --aw-color-bg-page: rgb(3, 6, 32);
+
+    ::selection {
+      background-color: rgb(204, 0, 0);
+      color: snow;
+    }
+  }
+</style>

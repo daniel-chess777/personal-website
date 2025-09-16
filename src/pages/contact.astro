@@ -1,0 +1,63 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+import Logo from '~/components/Logo.astro';
+
+const metadata = { title: 'Contact' };
+---
+
+<Layout metadata={metadata}>
+  <!-- Hide announcement only -->
+  <div slot="announcement"></div>
+
+  <!-- Minimal header: DAO logo TOP-LEFT, same vibe as main header (no bubble) -->
+  <div slot="header">
+    <header class="sticky top-0 z-[9999] bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60 border-b border-white/10">
+      <div class="mx-auto max-w-7xl px-4 py-3">
+        <div class="flex items-center justify-start">
+          <a href="/#hero" aria-label="Back to personal page" class="inline-flex items-center">
+            <Logo />
+            <span class="sr-only">DAO</span>
+          </a>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- Condensed content -->
+  <div class="mx-auto max-w-2xl px-4 pt-6 pb-24">
+    <HeroText tagline="Contact" title="Let's Connect!" />
+
+    <!-- Remove `required` here to satisfy the ContactUs prop types.
+         Your Form.astro already sets fields to required by default. -->
+    <ContactUs
+      id="form"
+      title="Drop me a message today!"
+      subtitle="Feel free to reach out."
+      inputs={[
+        { type: 'text',  name: 'name',  label: 'Name'  },
+        { type: 'email', name: 'email', label: 'Email' },
+      ]}
+      textarea={{ label: 'Message', name: 'message' }}
+      disclaimer={{
+        label: 'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
+      }}
+      description="I will respond within 24 business hours."
+    />
+  </div>
+
+  <!-- Floating “Back” bubble bottom-right -->
+  <a
+    href="/#hero"
+    onclick="if (history.length > 1) { history.back(); return false; }"
+    aria-label="Back to personal page"
+    class="fixed bottom-6 right-6 z-[10000] inline-flex items-center gap-2 rounded-full
+           border border-white/30 bg-white/85 text-black shadow-xl backdrop-blur
+           px-5 py-3 font-semibold
+           hover:bg-white focus:outline-none focus:ring-2 focus:ring-red-500
+           dark:bg-slate-900/85 dark:text-white dark:border-slate-700"
+  >
+    ← Back
+  </a>
+</Layout>

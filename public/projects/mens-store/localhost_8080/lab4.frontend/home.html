@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from localhost:8080/lab4.frontend/home by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Aug 2025 17:54:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Davella's Men's Online Retail Store</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; color: white; background: rgba(0, 0, 0, 0.7); text-align: center; }
+    video { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; }
+    h1, h2, h3 { font-weight: bold; margin: 20px 0; }
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; color: #eee; }
+    .hero { background: rgba(0, 0, 0, 0.6); padding: 3rem 1rem; display: inline-block; border-radius: 10px; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .hero a { background-color: #007bff; color: white; padding: 0.8rem 1.5rem; text-decoration: none; font-size: 1rem; border-radius: 5px; transition: 0.3s; }
+    .hero a:hover { background-color: #0056b3; }
+    .products { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+    .product { background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 10px; width: 250px; text-align: center; transition: transform 0.2s; }
+    .product:hover { transform: scale(1.05); }
+    .product img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; }
+    .product h3 { font-size: 1.2rem; color: white; }
+    .product p { color: #ffcc00; font-size: 1.1rem; font-weight: bold; }
+    nav { margin-top: 20px; }
+    nav a { padding: 10px 15px; background: #007bff; color: white; border-radius: 5px; text-decoration: none; margin: 10px; font-size: 1.2rem; transition: 0.3s; }
+    nav a:hover { background: #0056b3; }
+
+    /* Demo badge + logout */
+    .badge {
+      position: fixed; top: 12px; right: 12px; z-index: 99999;
+      display: flex; gap: 8px; align-items: center;
+      background: rgba(0,0,0,0.7); color: #fff;
+      padding: 8px 12px; border-radius: 8px; font-size: 0.9rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .badge button {
+      appearance: none; border: 0; border-radius: 6px; cursor: pointer;
+      padding: 6px 10px; background: #dc2626; color: #fff; font-weight: 600;
+    }
+    .badge button:hover { filter: brightness(1.05); }
+  </style>
+</head>
+<body>
+  <video autoplay loop muted playsinline preload="metadata">
+    <source src="https://videos.pexels.com/video-files/7299549/7299549-uhd_1440_2732_25fps.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <header><h1>Davella's Men's Online Retail Store</h1></header>
+
+  <div class="hero">
+    <h2>Style Meets Simplicity</h2>
+    <p>Discover the latest in men's fashion. Shop with confidence and elevate your style today!</p>
+    <a href="../products.html">Browse Products</a>
+  </div>
+
+  <h2>Featured Products</h2>
+  <div class="products">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1619533394727-57d522857f89?q=80&w=1287&auto=format&fit=crop" alt="Elegant Suit">
+      <h3>Elegant Suit</h3>
+      <p>$299.99</p>
+    </div>
+
+    <div class="product">
+      <img src="https://5.imimg.com/data5/ECOM/Default/2024/7/437244781/VC/HB/II/124918422/omepi-512-500x500.webp" alt="Luxury Watch">
+      <h3>Luxury Watch</h3>
+      <p>$199.99</p>
+    </div>
+
+    <div class="product">
+      <!-- fixed the broken relative URL to the proper absolute URL -->
+<img src="../../media.istockphoto.com/id/963128010/photo/istockphoto-963128010-612x6127671.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=zQt2E3GU7QG87MSJxxmSnh6DYk4KXZih8PvU6n6AH6Q=" alt="Leather Backpack">
+      <h3>Leather Backpack</h3>
+      <p>$149.99</p>
+    </div>
+  </div>
+
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="../products.html">Browse Products</a>
+    <a href="../lab4.cart/cart.html">View Cart</a>
+  </nav>
+
+  <!-- Demo badge injected by script -->
+
+  <!-- Auth guard + link rewrite + welcome badge + logout -->
+  <script>
+    (() => {
+      // Base path to the mirrored folder: .../projects/mens-store/localhost_8080
+      const base = location.pathname.split('/localhost_8080')[0] + '/localhost_8080';
+      const PATHS = {
+        login:    `${base}/lab4.login/index.html`,
+        frontend: `${base}/lab4.frontend/home.html`,
+        products: `${base}/products.html`,
+        cart:     `${base}/lab4.cart/cart.html`,
+      };
+
+      // 1) Require login (set by mirrored login page)
+      if (localStorage.getItem('mensStoreAuth') !== 'ok') {
+        location.replace(PATHS.login);
+        return;
+      }
+
+      // 2) Rewrite any old absolute localhost links just in case
+      const map = new Map([
+        ['http://localhost:8080/lab4.login',    PATHS.login],
+        ['http://localhost:8080/lab4.frontend', PATHS.frontend],
+        ['http://localhost:8080/products',      PATHS.products],
+        ['http://localhost:8080/lab4.cart',     PATHS.cart],
+      ]);
+      document.querySelectorAll('a[href]').forEach(a => {
+        for (const [from, to] of map) {
+          if (a.href.startsWith(from)) {
+            if (from.includes('lab4.frontend'))       a.href = PATHS.frontend;
+            else if (from.endsWith('/products'))       a.href = PATHS.products;
+            else if (from.includes('lab4.cart'))       a.href = PATHS.cart;
+            else                                       a.href = to;
+          }
+        }
+      });
+
+      // 3) Show a small "Demo mode" badge with the username + Logout
+      const user = sessionStorage.getItem('mensStoreUser') || 'demo';
+      const badge = document.createElement('div');
+      badge.className = 'badge';
+      badge.innerHTML = `<span>Demo mode • <strong>${user}</strong></span>`;
+      const out = document.createElement('button');
+      out.textContent = 'Log out';
+      out.onclick = () => { localStorage.removeItem('mensStoreAuth'); sessionStorage.removeItem('mensStoreUser'); location.href = PATHS.login; };
+      badge.appendChild(out);
+      document.body.appendChild(badge);
+    })();
+  </script>
+</body>
+<!-- Mirrored from localhost:8080/lab4.frontend/home by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Aug 2025 17:54:28 GMT -->
+</html>

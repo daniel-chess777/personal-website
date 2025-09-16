@@ -1,0 +1,1337 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Header from '~/components/widgets/Header.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Content from '~/components/widgets/Content.astro';
+// import CallToAction from '~/components/widgets/CallToAction.astro';
+// import Features3 from '~/components/widgets/Features3.astro';
+// import Testimonials from '~/components/widgets/Testimonials.astro';
+import Steps from '~/components/widgets/Steps.astro';
+// import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import { getPermalink } from '~/utils/permalinks';
+import myPhoto from '../../assets/images/IMG_2996.jpg';
+import giphy from '../../assets/videos/giphy.gif';
+import heroStatue from '../../assets/images/hero-statue.png';
+import educationVideo from '../../assets/videos/education-bg.mp4';
+// import portfolioVideo from '../../assets/videos/portfolio-bg.mp4';
+import workVideo from '../../assets/videos/work-bg (1).mp4';
+import certificationVideo from '../../assets/videos/work-bg (2).mp4';
+import award from '../../assets/images/award.png';
+import ieso from '../../assets/images/ieso-logo.jpg';
+import iesovideo from '../../assets/videos/iesovid.mp4';
+import unilogo from '../../assets/images/toronto-metropolitan-university.jpg';
+import uniVideo from '../../assets/videos/clouds.mp4';
+import elepic from '../../assets/images/ele.jpg';
+import elevid from '../../assets/videos/elevid.mp4';
+import fpgapic from '../../assets/images/fpga.jpg';
+import fpgavid from '../../assets/videos/fpga.mp4';
+import Intrests from '../../assets/videos/Intrests.mp4';
+import bjj from '../../assets/images/bjj-bronze-aug2025.jpg';
+import chess from '../../assets/images/chess-silver.jpeg';
+import scienceaward from '../../assets/images/ScienceAward.jpg';
+import hike from '../../assets/images/sleeping-giant.jpg';
+import MUvid from '../../assets/videos/MU.mp4';
+import certificate from '../../assets/images/DanielAvella.png';
+import volunteer from '../../assets/images/volunteer.jpg';
+
+const metadata = {
+  title: 'Personal Homepage',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="announcement"></Fragment>
+
+<Fragment slot="header">
+  <Header
+    links={[
+      { text: 'Home',           href: '#hero' },
+      { text: 'About',          href: '#about' },
+      { text: 'Work',           href: '#work' },
+      { text: 'Education',      href: '#education' },
+      { text: 'Certifications', href: '#certifications' },
+      { text: 'Projects',       href: '#portfolio' },
+      { text: 'Interests',      href: '#interests' },
+    ]}
+    actions={[ { text: 'Hire me', href: '/contact#form' } ]}
+  />
+</Fragment>
+
+
+  <!-- rest of your page content goes here, still inside <Layout> -->
+
+
+  <!-- Hero2 Widget ******************* -->
+  <section id="hero" class="relative">
+    <!-- Background GIF -->
+    <img
+      src={giphy.src}
+      alt="Animated Background"
+      class="absolute inset-0 w-full h-full object-cover z-0 opacity-20 transform-gpu will-change-transform parallax-bg"
+    />
+
+    <!-- Hero Content (Overlayed) -->
+    <div class="relative z-10">
+      <Hero
+        title="Daniel Avella Ordonez"
+        tagline="Personal Website"
+        actions={[{ variant: 'primary', text: 'Hire me', href: getPermalink('/contact#form') }]}
+      >
+        <Fragment slot="subtitle">
+          I'm a Computer Engineering student at Toronto Metropolitan University, currently completing a 16-month co-op at the Independent Electricity System Operator (IESO). <br />
+          I'm passionate about developing innovative systems, merging technical precision with real-world applications to create meaningful impact.
+        </Fragment>
+      </Hero>
+    </div>
+  </section>
+  
+
+  <div class="relative z-10 h-px bg-white/15 my-0"></div>
+
+<!-- ✅ Content Widget with AOS Animations -->
+<Content
+  id="about"
+  columns={3}
+  items={[
+    {
+      icon: 'tabler:brand-linkedin',
+      callToAction: {
+        target: '_blank',
+        text: 'LinkedIn',
+        href: 'https://www.linkedin.com/in/daniel-avella-ordonez-3b60a5251/?originalSubdomain=ca',
+      },
+    },
+    {
+      icon: 'tabler:brand-github',
+      callToAction: {
+        target: '_blank',
+        text: 'GitHub',
+        href: 'https://github.com/daniel-chess777',
+      },
+    },
+    {
+      icon: 'tabler:mail',
+      callToAction: {
+        target: '_blank',
+        text: 'Email',
+        href: 'https://mail.google.com/mail/?view=cm&to=daniel.avella777@gmail.com&su=Reaching%20Out%20From%20Your%20Website&body=Hi%20Daniel%2C%0D%0A%0D%0AI%20came%20across%20your%20personal%20site%20and%20wanted%20to%20connect.%20Here%27s%20a%20bit%20about%20me...',
+      },
+    },
+  ]}
+  image={{
+    src: myPhoto, // ✅ Actual directory reference (make sure the image exists there)
+    alt: 'Daniel Avella Ordonez Portrait',
+    loading: 'eager',
+    width: 1024,
+    height: 1400,
+class: 'rounded-2xl border-4 border-red-600 shadow-xl will-change-transform transition-transform duration-300 ease-in-out hover:scale-[1.05]',
+  'data-aos': 'fade-right',
+  'data-aos-delay': '100',
+  'data-aos-once': 'true'
+  }}
+>
+  <!-- ✅ Text Content with fade-up AOS -->
+  <Fragment slot="content">
+    <div data-aos="fade-up" data-aos-delay="200">
+      <h2 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">About me</h2>
+      <p>
+        I'm a Computer Engineering student at Toronto Metropolitan University with a passion for technology, design, and innovation.
+        My journey blends technical skill with creativity, shaped by hands-on experience during a 16-month co-op at the Independent Electricity System Operator (IESO).
+      </p>
+      <br />
+      <p>
+        I find inspiration in the challenge of solving real-world problems—whether through code, engineering design, or personal growth. 
+        My life outside of work includes intense MMA training, strength workouts, and a deep commitment to becoming the most capable version of myself—mentally and physically.
+      </p>
+      <br />
+      <p>If you're curious to follow my work, thoughts, or training journey, you can connect with me below:</p>
+    </div>
+  </Fragment>
+
+  <!-- ✅ Optional: Slight background fade-in -->
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-red-50 dark:bg-transparent" data-aos="fade-in" data-aos-delay="300"></div>
+  </Fragment>
+</Content>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const img = document.querySelector('img[alt="Daniel Avella Ordonez Portrait"]');
+    if (!img || img.closest('figure')) return;
+
+    const parent = img.parentElement;
+    if (!parent) return; // safety: parent could be null in rare cases
+
+    const figure = document.createElement('figure');
+    figure.className = 'mt-2 md:mt-3';
+
+    parent.insertBefore(figure, img);
+    figure.appendChild(img);
+
+    const cap = document.createElement('figcaption');
+    // ↑ increased spacing under the image
+    cap.className = 'text-sm text-white/70 text-center mt-5 md:mt-6';
+    cap.innerHTML = `In front of the <strong>steam turbine unit</strong> at
+      <strong>Portlands Energy Centre</strong> (Atura Power), Toronto — invited by
+      <a href="https://www.ieso.ca" target="_blank" rel="noopener"
+         class="underline decoration-white/30 hover:decoration-white">IESO</a>
+      for a site visit (June 12, 2025).`;
+    figure.appendChild(cap);
+  });
+</script>
+
+
+
+<div class="relative z-5 h-px bg-white/15 my-0"></div>
+
+
+
+
+<section id="resume" class="relative py-24 text-white overflow-hidden">
+  <div class="relative z-10 max-w-4xl mx-auto px-4 space-y-16">
+
+    <!-- 💼 Work Experience (video background) -->
+    <div class="relative flow-root overflow-hidden rounded-2xl">
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="metadata"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        style="animation: slowMotion 30s linear infinite;"
+      >
+        <source src={workVideo} type="video/mp4" />
+      </video>
+      <div class="absolute inset-0 bg-black/60 z-0"></div>
+
+      <div class="relative z-10 py-16 px-6
+                  [&_*]:!text-white
+                  [&_p]:!text-white/90
+                  [&_span]:!text-white/90
+                  [&_small]:!text-white/80
+                  [&_li]:!text-white/90
+                  [&_a]:!text-blue-300 [&_a:hover]:!text-blue-200">
+        <Steps
+          id="work"
+          title="Work Experience"
+          items={[
+{
+  title: 'Process Engineering Analyst (Co-op) <br /> <span class="font-normal">IESO</span> <br /> <span class="text-sm font-normal">May 2025 – Present</span>',
+  description: `<em>Process automation & analytics for Ontario’s electricity market operations. <br /> Built PI System tooling and SCADA validation routines to improve telemetry quality; standardized tag mapping and change tracking. <br /> Authored stakeholder runbooks and shipped Azure DevOps pipelines for reproducible analyses and traceable releases.</em> <br />
+  <a href="https://www.ieso.ca/" target="_blank" rel="noopener" class="underline inline-flex items-center gap-1 mt-1 text-sm">
+    <i class="icon-[tabler--external-link]" /> Visit IESO
+  </a>`,
+  icon: 'tabler:cpu',
+}
+,
+
+{
+  title: 'Web Architect & Tech Consultant <br /> <span class="font-normal">Fila’s General Construction</span> <br /> <span class="text-sm font-normal">Oct 2023 – May 2025</span>',
+  description: `Launched the company website and Google Business Profile. <br /> Implemented local SEO, analytics, and lead capture/CRM; ran targeted local ads and Google ads with conversion tracking. <br />
+  <a href="https://filasgeneralconstruction.com/" target="_blank" rel="noopener" class="underline inline-flex items-center gap-1 mt-1 text-sm">
+    <i class="icon-[tabler--external-link]" /> Visit site
+  </a>`,
+  icon: 'tabler:device-desktop',
+},
+
+            {
+              title: 'Customer Wellness Associate <br /> <span class="font-normal">Healthy Planet</span> <br /> <span class="text-sm font-normal">2024 – Present</span>',
+              description: `Supported wellness product education, POS, and inventory.`,
+              icon: 'tabler:shopping-cart',
+            },
+            {
+              title: 'Produce Clerk <br /> <span class="font-normal">Marilu’s Market</span> <br /> <span class="text-sm font-normal">2021 – 2022</span>',
+              description: `Managed produce displays and freshness, supported customers.`,
+              icon: 'tabler:leaf',
+            },
+          ]}
+          classes={{ container: 'max-w-3xl' }}
+        />
+      </div>
+    </div>
+
+    <!-- 🔻 Divider with spacing -->
+<div class="relative z-10 h-px bg-white/15 my-12"></div>
+
+    <!-- 🎓 Education (video background) -->
+    <div class="relative flow-root overflow-hidden rounded-2xl">
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="metadata"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        style="animation: slowMotion 30s linear infinite;"
+      >
+        <source src={educationVideo} type="video/mp4" />
+      </video>
+      <div class="absolute inset-0 bg-black/60 z-0"></div>
+
+      <div class="relative z-10 py-16 px-6
+                  [&_*]:!text-white
+                  [&_p]:!text-white/90
+                  [&_span]:!text-white/90
+                  [&_small]:!text-white/80
+                  [&_li]:!text-white/90
+                  [&_a]:!text-blue-300 [&_a:hover]:!text-blue-200">
+        <Steps
+          id="education"
+          title="Education"
+          items={[
+            {
+              title: `Bachelor of Engineering in Computer Engineering <br />
+                      <span class="font-normal">Toronto Metropolitan University</span> <br />
+                      <span class="text-sm font-normal">2020 – 2025 (Expected)</span> <br />
+                      <span class="text-sm font-normal">Cumulative GPA: 3.4</span>`,
+              icon: 'tabler:school',
+            },
+            // 🏅 Bouck & Hague Memorial Award (with thumbnail on the right)
+        {
+  title: `<span id="award-anchor"></span>
+          Bouck & Hague Memorial Award <br />
+          <span class="font-normal">TMU Student Awards &amp; Scholarships</span> <br />
+          <span class="text-sm font-normal">2025</span> <br />
+          <span class="text-sm font-normal">Academic excellence &amp; community involvement</span> <br />
+          <a href="#lb-award" class="underline inline-flex items-center gap-1 mt-1 text-sm">
+            <i class="icon-[tabler--eye]" /> View Award
+          </a>`,
+  icon: 'tabler:award',
+
+        },
+            {
+              title: `Dean’s List Recipient <br />
+                      <span class="font-normal">TMU Engineering Faculty</span> <br />
+                      <span class="text-sm font-normal">Winter 2025</span> <br />
+                      <a href="/files/501212214%20Daniel%20Avella%20Ordonez%20Winter%202025%20Dean's%20Letter.pdf"
+                         target="_blank"
+                         class="underline inline-flex items-center gap-1 mt-1 text-sm"
+                         download>
+                        <i class="icon-[tabler--download]" /> Download PDF
+                      </a>`,
+              icon: 'tabler:award',
+            },
+            {
+              title: `Dean’s List Recipient <br />
+                      <span class="font-normal">TMU Engineering Faculty</span> <br />
+                      <span class="text-sm font-normal">2022 – 2023</span> <br />
+                      <a href="/files/501212214%20Daniel%20Avella%20Ordonez%202022-2023%20Dean's%20Letter.pdf"
+                         target="_blank"
+                         class="underline inline-flex items-center gap-1 mt-1 text-sm"
+                         download>
+                        <i class="icon-[tabler--download]" /> Download PDF
+                      </a>`,
+              icon: 'tabler:award',
+            },
+            {
+title: `<span id="cert-anchor"></span>
+          IEEE CSTMC Certificate <br />
+          <span class="font-normal">Software Fundamentals Series</span> <br />
+          <span class="text-sm font-normal">Dec 2022</span> <br />
+          <a href="#lb-cert"
+             class="underline inline-flex items-center gap-1 mt-1 text-sm">
+            <i class="icon-[tabler--eye]" /> View Certificate
+          </a>`,
+  icon: 'tabler:certificate',
+            },
+          ]}
+          classes={{ container: 'max-w-3xl' }}
+        />
+      </div>
+    </div>
+
+
+<div id="lb-award" class="lb" aria-modal="true" role="dialog" aria-label="Bouck & Hague Memorial Award">
+  <!-- ⬇️ Go back to the award anchor, not "#" -->
+  <a href="#award-anchor" class="lb__backdrop" aria-hidden="true"></a>
+  <div class="lb__panel">
+    <img src={award.src} alt="Bouck & Hague Memorial Award" class="lb__media" loading="eager" decoding="async" />
+    <div class="lb__footer">
+      <span>Click outside or use Close to dismiss</span>
+      <a href="#award-anchor" class="lb__close"><i class="icon-[tabler--x]"></i> Close</a>
+    </div>
+  </div>
+</div>
+
+<!-- IEEE CSTMC Certificate lightbox -->
+<div id="lb-cert" class="lb" aria-modal="true" role="dialog"
+     aria-label="IEEE CSTMC Certificate — Software Fundamentals Series (Nov 2022)">
+  <!-- Close by returning to the certificate anchor (prevents jumping to page top) -->
+  <a href="#cert-anchor" class="lb__backdrop" aria-hidden="true"></a>
+  <div class="lb__panel">
+    <img
+      src={certificate.src}
+      alt="IEEE CSTMC Certificate — Software Fundamentals Series (Nov 2022)"
+      class="lb__media"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="lb__footer">
+      <span>Click outside or use Close to dismiss</span>
+      <a href="#cert-anchor" class="lb__close">
+        <i class="icon-[tabler--x]"></i> Close
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  /* Gentle return when closing lightboxes */
+  html { scroll-behavior: smooth; }
+  /* Keep anchors comfortably below any sticky header */
+  #award-anchor, #cert-anchor { scroll-margin-top: 80px; }
+
+  /* Lightbox (same as your award; shown here for completeness if needed) */
+  .lb{position:fixed;inset:0;display:none;place-items:center;z-index:60}
+  .lb:target{display:grid}
+  .lb__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+  .lb__panel{position:relative;width:min(90vw,1100px);max-height:85vh;border-radius:16px;background:rgba(0,0,0,.9);
+             border:1px solid rgba(255,255,255,.12);box-shadow:0 25px 60px rgba(0,0,0,.6);padding:12px;overflow:hidden}
+  .lb__media{display:block;max-width:100%;max-height:75vh;margin:0 auto;border-radius:10px}
+  .lb__footer{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-top:.5rem;color:rgba(255,255,255,.75);
+              font-size:.8rem;padding:0 .25rem .25rem}
+  .lb__close{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;color:#fff;text-decoration:none;
+             border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:.75rem;padding:.4rem .75rem}
+  .lb__close:hover{background:rgba(255,255,255,.16)}
+</style>
+
+
+
+<div class="relative z-10 h-px bg-white/15 my-12"></div>
+<!-- 🛡️ Certifications & Licenses (video background + volunteer lightbox) -->
+<div class="relative flow-root overflow-hidden rounded-2xl mt-10">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    class="absolute inset-0 w-full h-full object-cover z-0"
+    style="animation: slowMotion 30s linear infinite;"
+  >
+    <source src={certificationVideo} type="video/mp4" />
+  </video>
+  <div class="absolute inset-0 bg-black/60 z-0"></div>
+
+  <div
+    class="relative z-10 py-16 px-6
+           [&_*]:!text-white
+           [&_p]:!text-white/90
+           [&_span]:!text-white/90
+           [&_small]:!text-white/80
+           [&_li]:!text-white/90
+           [&_a]:!text-blue-300 [&_a:hover]:!text-blue-200"
+  >
+    <Steps
+      id="certifications"
+      title="Certifications & Licenses"
+      items={[
+        {
+          title: `Ontario Security Guard Course Completion <br />
+                  <span class="text-sm font-normal">CRJMC Verified</span> <br />
+                  <a href="/files/Ontario_Security_Guard_Course_Completion_Certificate.pdf"
+                     target="_blank"
+                     class="underline inline-flex items-center gap-1 mt-1 text-sm"
+                     download>
+                    <i class="icon-[tabler--download]" /> View Certificate
+                  </a>`,
+          icon: 'tabler:certificate',
+        },
+        {
+          title: `Standard First Aid & CPR/AED Level C (Blended) <br />
+                  <span class="text-sm font-normal">Certified: 2025 (CSA Z1210-17)</span> <br />
+                  <a href="/files/Daniel_Avella_Standard_First_Aid_CPR_Certificate.pdf"
+                     target="_blank"
+                     class="underline inline-flex items-center gap-1 mt-1 text-sm"
+                     download>
+                    <i class="icon-[tabler--download]" /> View Certificate
+                  </a>`,
+          icon: 'tabler:heart-rate-monitor',
+        },
+        {
+          title: `Licensed Ontario Security Guard <br />
+                  <span class="text-sm font-normal">Valid through May 2027</span>`,
+          icon: 'tabler:shield-check',
+        },
+        // ✅ Hospital Volunteer (opens lightbox; returns to the same spot on close)
+        {
+          title: `<span id="volunteer-anchor"></span>
+                  Hospital Volunteer <br />
+                  <span class="text-sm font-normal">Joseph Brant Hospital — 200+ hours (2017–2019)</span> <br />
+                  <a href="#lb-volunteer" class="underline inline-flex items-center gap-1 mt-1 text-sm">
+                    <i class="icon-[tabler--eye]" /> View Badge
+                  </a>`,
+          icon: 'tabler:building-hospital',
+        },
+      ]}
+      classes={{ container: 'max-w-3xl' }}
+    />
+  </div>
+</div>
+
+<!-- ✅ Volunteer Badge Lightbox (no JS) -->
+<div id="lb-volunteer" class="lb" aria-modal="true" role="dialog" aria-label="Hospital Volunteer Badge">
+  <!-- Backdrop closes back to the anchor (no jump to top) -->
+  <a href="#volunteer-anchor" class="lb__backdrop" aria-hidden="true"></a>
+
+  <div class="lb__panel">
+    <!-- Always-visible top-right close -->
+    <a href="#volunteer-anchor" class="lb__closeTop" aria-label="Close">
+      <i class="icon-[tabler--x]"></i>
+    </a>
+
+    <img
+      src={volunteer.src} 
+      alt="Volunteer badge — Joseph Brant Hospital"
+      class="lb__media"
+      loading="eager"
+      decoding="async"
+    />
+
+    <div class="lb__footer">
+      <span>Click outside or use Close to dismiss</span>
+      <a href="#volunteer-anchor" class="lb__close">
+        <i class="icon-[tabler--x]"></i> Close
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Smooth close back to anchor; offset to avoid being under sticky headers */
+  html { scroll-behavior: smooth; }
+  #volunteer-anchor { scroll-margin-top: 96px; }
+
+  /* Lightbox */
+  .lb{position:fixed;inset:0;display:none;place-items:center;z-index:60}
+  .lb:target{display:grid}
+  .lb__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+
+  /* Panel as flex so footer never pushes offscreen; reserve room for media */
+  .lb__panel{
+    position:relative;
+    display:flex;                  /* ← keep footer visible */
+    flex-direction:column;
+    width:min(90vw,1100px);
+    max-height:85vh;
+    border-radius:16px;
+    background:rgba(0,0,0,.9);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 25px 60px rgba(0,0,0,.6);
+    padding:12px 12px 10px;
+    overflow:hidden;
+  }
+
+  /* Media constrained so Close is visible; maintains aspect ratio */
+  .lb__media{
+    display:block;
+    max-width:100%;
+    max-height:70vh;               /* ↓ tighter to guarantee footer room */
+    margin:0 auto;
+    border-radius:10px;
+    object-fit:contain;
+  }
+
+  /* Top-right close (always visible) */
+  .lb__closeTop{
+    position:absolute;
+    top:10px; right:10px;
+    display:inline-flex; align-items:center; justify-content:center;
+    width:36px; height:36px;
+    border-radius:10px;
+    color:#fff; text-decoration:none;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(0,0,0,.45);
+    backdrop-filter: blur(2px);
+  }
+  .lb__closeTop:hover{background:rgba(255,255,255,.2)}
+
+  .lb__footer{
+    display:flex;justify-content:space-between;align-items:center;gap:.75rem;
+    margin-top:.5rem;color:rgba(255,255,255,.75);
+    font-size:.8rem;padding:0 .25rem .25rem
+  }
+  .lb__close{
+    display:inline-flex;align-items:center;gap:.5rem;font-weight:600;color:#fff;text-decoration:none;
+    border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);
+    border-radius:.75rem;padding:.4rem .75rem
+  }
+  .lb__close:hover{background:rgba(255,255,255,.16)}
+
+  /* Background video motion */
+  @keyframes slowMotion {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) { video { animation: none !important; } }
+</style>
+
+<!-- Divider under the block (tunable spacing) -->
+<div class="relative z-0 h-px bg-white/15 my-8"></div>
+
+
+
+<!-- =========================
+= Compact Skills (encapsulated with white lines)
+========================= -->
+<section
+  id="skills"
+  class="relative py-16 text-white overflow-hidden"
+  style={`background-image: url('${heroStatue.src}'); background-size: cover; background-position: center; background-repeat: no-repeat;`}
+>
+  <!-- Encapsulating white lines -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/15 z-10"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/15 z-10"></div>
+
+  <!-- Dark overlay for clarity -->
+  <div class="absolute inset-0 bg-black/80 z-0"></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Skills</h2>
+    <p class="mt-2 text-sm text-white/70 max-w-2xl">
+      A focused snapshot of what I bring to engineering teams.
+    </p>
+
+    <!-- Buckets with subtle motion -->
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <!-- Engineering -->
+      <div class="group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] hover:shadow-lg hover:shadow-black/30">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-white/75">Engineering</h3>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <span class="chip">Python</span>
+          <span class="chip">C/C++</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Web Tech</span>
+        </div>
+      </div>
+
+      <!-- Systems & Data -->
+      <div class="group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] hover:shadow-lg hover:shadow-black/30">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-white/75">Systems & Data</h3>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <span class="chip">System Architecture</span>
+          <span class="chip">Data Pipelines</span>
+          <span class="chip">Excel</span>
+          <span class="chip">Pandas</span>
+          <span class="chip">Plotly</span>
+        </div>
+      </div>
+
+      <!-- DevOps & Practices -->
+      <div class="group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] hover:shadow-lg hover:shadow-black/30">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-white/75">DevOps & Practices</h3>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <span class="chip">Git</span>
+          <span class="chip">Docker</span>
+          <span class="chip">Kubernetes</span>
+          <span class="chip">CI/CD</span>
+          <span class="chip">Secure Coding</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concise strengths -->
+    <div class="mt-6 flex flex-wrap gap-2">
+      <span class="chip-outline">Documentation</span>
+      <span class="chip-outline">Collaboration</span>
+      <span class="chip-outline">Self-Discipline</span>
+      <span class="chip-outline">Adaptability</span>
+    </div>
+
+    <!-- Applied examples (kept minimal) -->
+    <details class="mt-8 group">
+      <summary class="cursor-pointer text-sm text-white/75 hover:text-white/90 transition">
+        Show applied examples
+      </summary>
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="rounded-xl border border-white/10 bg-white/5 p-4 transition-all duration-200 hover:bg-white/10 hover:translate-y-[-2px]">
+          <h4 class="text-sm font-semibold">Market Analysis Tools</h4>
+          <p class="mt-2 text-xs text-white/80">
+            Python + Pandas pipelines, SCADA validation, and DevOps releases for reproducible analyses.
+          </p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-4 transition-all duration-200 hover:bg-white/10 hover:translate-y-[-2px]">
+          <h4 class="text-sm font-semibold">SMB Web Launch</h4>
+          <p class="mt-2 text-xs text-white/80">
+            Astro site, SEO/analytics, CRM capture, and local ad ops with conversion tracking.
+          </p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-4 transition-all duration-200 hover:bg-white/10 hover:translate-y-[-2px]">
+          <h4 class="text-sm font-semibold">Secure Coding</h4>
+          <p class="mt-2 text-xs text-white/80">
+            Input validation, dependency scanning, least-privilege patterns, and docs for teammates.
+          </p>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- Local utility styles for chips -->
+<style>
+  .chip{ @apply rounded-full bg-white/10 px-3 py-1 text-sm text-white/90 transition-colors duration-150 hover:bg-white/20; }
+  .chip-outline{ @apply rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80 transition-all duration-150 hover:bg-white/10 hover:border-white/25; }
+  .chip-xs{ @apply rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] text-white/85 transition-colors duration-150 hover:bg-white/20; }
+</style>
+
+
+
+
+
+<!-- =========================
+= Portfolio (refined intro + IESO card)
+========================= -->
+<!-- AFTER (keep the top padding, shrink bottom) -->
+<section id="portfolio" class="relative pt-24 pb-4 overflow-hidden text-white">
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+
+    <!-- Intro with personality -->
+    <div class="mb-8">
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80 backdrop-blur-sm">
+        <i class="icon-[tabler--sparkles]" /> Portfolio
+      </div>
+      <h2 class="mt-2 text-4xl sm:text-5xl font-bold tracking-tight">
+        Selected work
+      </h2>
+      <p class="mt-3 text-base sm:text-lg text-white/80 max-w-3xl">
+        Brief, high-impact snapshots from industry and academia—where systems thinking meets clean UX. Deeper dives soon.
+      </p>
+    </div>
+
+    <!-- Divider separating intro from projects -->
+    <div class="relative z-10 h-px bg-white/20 mb-12"></div>
+
+    <!-- Project 1: IESO (match COE608 format; no video animation) -->
+    <div class="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl shadow-black/30">
+      <!-- 🎥 Background video (rounded via parent) -->
+      <div class="absolute inset-0 pointer-events-none">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          class="absolute inset-0 w-full h-full object-cover"
+          aria-hidden="true"
+        >
+          <source src={iesovideo} type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-black/65"></div>
+      </div>
+
+      <!-- Foreground content -->
+      <div class="relative z-10 py-16 sm:py-20 lg:py-24 px-2">
+        <Content
+          isReversed
+          title="IESO — Independent Electricity System Operator"
+          subtitle="Market analytics toolkit for Ontario’s grid telemetry: reproducible signal pipelines, automated oscillation scoring, and observability dashboards."
+          items={[
+            {
+              title: 'Description:',
+              description:
+                `<em>Built a frequency-domain analysis flow (FFT/PSD) over rolling windows to characterize normal oscillations (0.01–15 Hz), standardize tag mapping, and surface band maxima for thresholding. Integrated PI System / SCADA ingestion and shipped pipelines via Azure DevOps with runbooks and dashboards.</em>`,
+            },
+            {
+              title: 'Role:',
+              description:
+                `<em>Signal processing · PI/SCADA integration · DevOps automation · telemetry QA · stakeholder documentation.</em>`,
+            },
+            {
+              title: 'Impact:',
+              description:
+                `<em>Cleaner telemetry, faster diagnostics, and clearer operator visibility into oscillatory behavior across assets.</em>`,
+            },
+          ]}
+          image={{
+            src: ieso,
+            alt: 'IESO project visual',
+            loading: 'lazy',
+            width: 800,
+            height: 600,
+            class:
+              'object-contain mx-auto w-[180px] sm:w-[220px] md:w-[260px] h-auto ' +
+              'rounded-2xl border border-black shadow-lg ' + /* thinner border; no padded frame */
+              'transition-transform duration-300 ease-out ' +
+              'hover:scale-[1.05] hover:shadow-2xl hover:brightness-110',
+          }}
+        >
+          <Fragment slot="content">
+            <h3 id="project-ieso" class="text-xl sm:text-2xl font-semibold tracking-tight dark:text-white mb-3">
+              Project 1: <span class="text-xl sm:text-2xl">IESO market analytics toolkit</span>
+            </h3>
+
+            <!-- White CTA button (consistent across sections) -->
+            <a
+              href="/projects/oscillation-analysis/index.html"
+              target="_blank"
+              rel="noopener"
+              class="mt-2 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-2.5
+                     font-medium text-white backdrop-blur-sm transition-all
+                     hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                     focus:outline-none focus:ring-2 focus:ring-white/30"
+            >
+              <span>Visit project</span>
+              <i class="icon-[tabler--external-link] text-lg"></i>
+            </a>
+          </Fragment>
+
+          <!-- leave slot=bg empty (rounded video sits behind) -->
+          <Fragment slot="bg"></Fragment>
+        </Content>
+      </div>
+    </div>
+
+    <!-- Divider after IESO -->
+    <div class="relative z-10 h-px bg-white/15 my-6"></div>
+
+  </div>
+</section>
+
+<!-- =========================
+= Project — COE608 RISC CPU (VHDL on FPGA)
+========================= -->
+<div class="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl shadow-black/30">
+  <!-- 🎥 Background video (rounded via parent) -->
+  <div class="absolute inset-0 pointer-events-none">
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      class="absolute inset-0 w-full h-full object-cover will-change-transform"
+      style="animation: slowMotion 30s linear infinite;"
+      aria-hidden="true"
+    >
+      <source src={fpgavid} type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-black/65"></div>
+  </div>
+
+  <!-- Foreground content -->
+  <div class="relative z-10 py-16 sm:py-20 lg:py-24 px-2">
+    <Content
+      isReversed
+      title="COE608 — Computer Organization & Architecture"
+      subtitle="Toronto Metropolitan University · B.Eng. Computer Engineering · RISC CPU (VHDL on FPGA). Computer Organization & Architecture. Designed and verified a 16-bit RISC processor end-to-end: ISA, datapath, control, memory, and timing."
+      items={[
+        {
+          title: 'Description:',
+          description:
+            'Course labs progressed from PC/register file and bus interconnects → a 32-bit ALU (simulation + board) → data memory → full datapath → control-unit FSM → final CPU integration. The completed core executes a small instruction set (e.g., ADD/SUB, AND/OR, shifts/rotates, immediate loads, and conditional branches) with MIF-backed instruction/data memory and Quartus timing/waveform validation.',
+        },
+        {
+          title: 'Role:',
+          description:
+            'Defined ISA semantics and micro-ops; authored VHDL for PC, register file, ALU, memory, and control FSM; integrated top level; created testbenches and waveform checks; delivered IEEE-style report and oral demo.',
+        },
+      ]}
+      image={{
+        src: fpgapic,
+        alt: 'COE608 CPU — FPGA/VHDL',
+        loading: 'lazy',
+        width: 800,
+        height: 600,
+        class:
+          'object-contain mx-auto w-[180px] sm:w-[220px] md:w-[280px] h-auto ' +
+          'rounded-2xl border-2 border-black shadow-lg ' +
+          'transition-transform duration-300 ease-out will-change-transform ' +
+          'hover:scale-[1.05] hover:shadow-2xl hover:brightness-110',
+      }}
+
+    >
+      <Fragment slot="content">
+        <h3 id="project-coe608" class="text-xl sm:text-2xl font-semibold tracking-tight dark:text-white mb-2">
+          Project 4: <span class="text-xl sm:text-2xl">COE608 — Complete CPU</span>
+        </h3>
+
+        <!-- small course badge -->
+        <p class="text-xs uppercase tracking-wide text-white/60 mb-4">
+          Computer Organization &amp; Architecture · RISC datapath + control · FPGA/Quartus
+        </p>
+
+        <!-- white CTA button (match other sections) -->
+        <a
+          href="/projects/coe608/COE608_LAB6.pdf"
+          target="_blank"
+          rel="noopener"
+          class="mt-2 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-2.5
+                 font-medium text-white backdrop-blur-sm transition-all
+                 hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                 focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          <span>View report (PDF)</span>
+          <i class="icon-[tabler--external-link] text-lg"></i>
+        </a>
+      </Fragment>
+
+      <!-- leave slot=bg empty (rounded video is outside) -->
+      <Fragment slot="bg"></Fragment>
+    </Content>
+  </div>
+</div>
+
+<!-- Divider -->
+<div class="relative z-10 h-px bg-white/15 my-12"></div>
+
+
+
+<!-- Project 3: School project (Java microservices, mirrored locally) -->
+<div class="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl shadow-black/30">
+  <!-- 🎥 Background video (rounded via parent) -->
+  <div class="absolute inset-0 pointer-events-none">
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      class="absolute inset-0 w-full h-full object-cover will-change-transform"
+      style="animation: slowMotion 30s linear infinite;"
+      aria-hidden="true"
+    >
+      <source src={uniVideo} type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <!-- Foreground content (extra padding to center text vertically) -->
+  <div class="relative z-10 py-16 sm:py-20 lg:py-24 px-2">
+    <Content
+      isReversed
+      title="COE692 — Software Design & Architecture"
+      subtitle="B.Eng. Computer Engineering at Toronto Metropolitan University (TMU). Men’s online clothing store (Java EE, microservices. Multi-service flow (Login, Products, Cart, Frontend) originally on Tomcat/Docker/K8s with JWT & KubeMQ; mirrored to static for a smooth, zero-server demo."
+      items={[
+        {
+          title: 'Description:',
+          description:
+            'Service-oriented JSP/Servlets with clear boundaries (auth, catalog, cart, UI), reproducible packaging, and ops runbooks. The static mirror preserves UX while removing runtime dependencies.',
+        },
+        {
+          title: 'Role:',
+          description:
+            'Service design • JSP/Servlets • JWT auth • inter-service integration • Docker/K8s manifests • UX flows • documentation.',
+        },
+      ]}
+      image={{
+  src: unilogo,
+  alt: 'Toronto Metropolitan University — project mark',
+  loading: 'lazy',
+  width: 800,
+  height: 600,
+  // ✅ Fixed, responsive width + auto height; true rounded bitmap; subtle border/hover
+  class:
+    'object-contain mx-auto w-[180px] sm:w-[220px] md:w-[260px] h-auto ' +
+    'rounded-2xl border-2 border-black shadow-lg ' +
+    'transition-transform duration-300 ease-out will-change-transform ' +
+    'hover:scale-[1.05] hover:shadow-2xl hover:brightness-110',
+}}
+
+    >
+      <Fragment slot="content">
+        <h3 id="project-school" class="text-xl sm:text-2xl font-semibold tracking-tight dark:text-white mb-2">
+          Project 3: <span class="text-xl sm:text-2xl">Men’s store — microservice demo</span>
+        </h3>
+
+        <p class="text-sm text-white/70 mb-4">
+          Demo login: <code>admin</code>/<code>password</code> or <code>user</code>/<code>1234</code>
+        </p>
+
+        <!-- ✅ Clear, white CTA button (opens new tab) -->
+        <a
+          href="/projects/mens-store/localhost_8080/lab4.login/index.html"
+          target="_blank"
+          rel="noopener"
+          class="mt-2 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-2.5
+                 font-medium text-white backdrop-blur-sm transition-all
+                 hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                 focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          <span>View project</span>
+          <i class="icon-[tabler--external-link] text-lg"></i>
+        </a>
+      </Fragment>
+
+      <!-- leave slot=bg empty since the rounded video sits behind -->
+      <Fragment slot="bg"></Fragment>
+    </Content>
+  </div>
+</div>
+
+<!-- Divider -->
+<div class="relative z-10 h-px bg-white/15 my-12"></div>
+
+<!-- =========================
+= ELE404 — Electronic Circuits I (white/glass CTA)
+========================= -->
+<div class="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl shadow-black/30">
+  <!-- 🎥 Background video (rounded via parent) -->
+  <div class="absolute inset-0 pointer-events-none">
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      class="absolute inset-0 w-full h-full object-cover will-change-transform"
+      style="animation: slowMotion 30s linear infinite;"
+      aria-hidden="true"
+    >
+      <source src={elevid} type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/55 to-black/70"></div>
+  </div>
+
+  <!-- Foreground content -->
+  <div class="relative z-10 py-16 sm:py-20 lg:py-24 px-2">
+    <Content
+      isReversed
+      title="ELE404 — Electronic Circuits I"
+      subtitle="B.Eng. Computer Engineering, Toronto Metropolitan University (TMU). Single-supply, multistage BJT amplifier: biasing, small-signal model, and gain/bandwidth/swing targets; validated in Multisim with sweeps and corner checks."
+      items={[
+        {
+          title: 'Description:',
+          description:
+            'DC bias design, small-signal analysis, load-line & stability margins; cascaded stages with current sources/mirrors; impedance targets; verification against spec with structured measurements.',
+        },
+        {
+          title: 'Deliverables:',
+          description:
+            'Schematics, hand calculations, Multisim parametric sweeps, corner validation, and a formal design report with results and discussion.',
+        },
+      ]}
+      image={{
+        src: elepic,
+        alt: 'ELE404 amplifier project',
+        loading: 'lazy',
+        width: 800,
+        height: 600,
+        class:
+          'object-contain mx-auto w-[180px] sm:w-[220px] md:w-[260px] h-auto ' +
+          'rounded-2xl border-2 border-black shadow-lg ' +
+          'transition-transform duration-300 ease-out will-change-transform ' +
+          'hover:scale-[1.05] hover:shadow-2xl hover:brightness-110',
+      }}
+    >
+      <Fragment slot="content">
+        <h3 class="text-xl sm:text-2xl font-semibold tracking-tight dark:text-white mb-2">
+          Project 4: <span class="text-xl sm:text-2xl">BJT amplifier — design & validation</span>
+        </h3>
+
+        <!-- ✅ White/glass CTA (opens in new tab) -->
+        <a
+          href="/projects/ele404/FULL%20REPORT%20ELE404%20DESIGN%20PROJECT.pdf"
+          target="_blank"
+          rel="noopener"
+          class="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-2.5
+                 font-medium text-white backdrop-blur-sm transition-all
+                 hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                 focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          <span>View report (PDF)</span>
+          <i class="icon-[tabler--external-link] text-lg"></i>
+        </a>
+      </Fragment>
+
+      <!-- leave slot=bg empty (video sits behind this rounded card) -->
+      <Fragment slot="bg"></Fragment>
+    </Content>
+  </div>
+</div>
+
+<!-- Divider -->
+<div class="relative z-10 h-px bg-white/15 my-12"></div>
+
+
+
+
+
+
+
+<!-- =========================
+= Interests & Personal Achievements (video bg + CSS :target lightbox)
+========================= -->
+<div id="interests" class="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl shadow-black/30">
+  <!-- 🎥 Background video (rounded via parent) -->
+  <div class="absolute inset-0 pointer-events-none">
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+      class="absolute inset-0 w-full h-full object-cover"
+      aria-hidden="true"
+    >
+      <source src={Intrests} type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-black/65"></div>
+  </div>
+
+  <!-- Foreground content -->
+  <div class="relative z-10 py-16 sm:py-20 lg:py-24 px-6">
+    <!-- Intro -->
+    <div class="mb-8">
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80 backdrop-blur-sm">
+        <i class="icon-[tabler--heart]"></i> Personal
+      </div>
+      <h2 class="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">Interests &amp; Personal Achievements</h2>
+      <p class="mt-3 text-base sm:text-lg text-white/80 max-w-3xl">
+        Competition, strategy, endurance, and consistency — the same habits I bring to engineering work.
+      </p>
+    </div>
+
+    <!-- Top grid (4 tiles) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- BJJ -->
+      <article class="group p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10 hover:scale-[1.02] hover:shadow-xl">
+        <div class="flex items-center gap-3 mb-2">
+          <i class="icon-[tabler--medal] text-xl opacity-80"></i>
+          <h3 class="text-lg font-semibold">BJJ — No-Gi Bronze (Great Lakes Open)</h3>
+        </div>
+        <p class="text-white/80 text-sm leading-relaxed">
+          Aug&nbsp;2025. Builds composure under pressure, fast adaptation, and accountability — useful under delivery deadlines.
+        </p>
+        <a
+          href="#lb-bjj"
+          class="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2
+                 font-medium text-white backdrop-blur-sm transition-all
+                 hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                 focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          <span>View medal</span>
+          <i class="icon-[tabler--photo] text-base"></i>
+        </a>
+      </article>
+
+      <!-- Chess -->
+      <article class="group p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10 hover:scale-[1.02] hover:shadow-xl">
+        <div class="flex items-center gap-3 mb-2">
+          <i class="icon-[tabler--chess-queen] text-xl opacity-80"></i>
+          <h3 class="text-lg font-semibold">Chess — Silver medal</h3>
+        </div>
+        <p class="text-white/80 text-sm leading-relaxed">
+          Long-horizon planning and pattern recognition — the same muscles used in systems design and trade-offs.
+        </p>
+        <div class="mt-3 flex flex-wrap gap-3">
+          <a
+            href="#lb-chess"
+            class="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2
+                   font-medium text-white backdrop-blur-sm transition-all
+                   hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                   focus:outline-none focus:ring-2 focus:ring-white/30"
+          >
+            <span>View medal</span>
+            <i class="icon-[tabler--photo] text-base"></i>
+          </a>
+          <a
+            href="https://lichess.org/@/daniel-chess777"
+            target="_blank" rel="noopener"
+            class="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2
+                   font-medium text-white backdrop-blur-sm transition-all
+                   hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                   focus:outline-none focus:ring-2 focus:ring-white/30"
+          >
+            <span>Lichess profile</span>
+            <i class="icon-[tabler--external-link] text-base"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Hiking -->
+      <article class="group p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10 hover:scale-[1.02] hover:shadow-xl">
+        <div class="flex items-center gap-3 mb-2">
+          <i class="icon-[tabler--mountain] text-xl opacity-80"></i>
+          <h3 class="text-lg font-semibold">Endurance — Sleeping Giant summit</h3>
+        </div>
+        <p class="text-white/80 text-sm leading-relaxed">
+          Pacing and grit over long climbs. Mirrors how I approach large projects: chunking, recovery, steady velocity.
+        </p>
+        <a
+          href="#lb-hike"
+          class="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2
+                 font-medium text-white backdrop-blur-sm transition-all
+                 hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                 focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          <span>View photo</span>
+          <i class="icon-[tabler--photo] text-base"></i>
+        </a>
+      </article>
+
+      <!-- Calisthenics / Muscle-up -->
+      <article class="group p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10 hover:shadow-xl hover:scale-[1.02]">
+        <div class="flex items-center gap-3 mb-2">
+          <i class="icon-[tabler--dumbbell] text-xl opacity-80"></i>
+          <h3 class="text-lg font-semibold">Calisthenics — first muscle-up</h3>
+        </div>
+        <p class="text-white/80 text-sm leading-relaxed">
+          Five months of steady progress. Reinforced habit design, progressive overload, and patient iteration — just like engineering.
+        </p>
+        <a
+          href="#lb-mu"
+          class="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2
+                 font-medium text-white backdrop-blur-sm transition-all
+                 hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                 focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          <span>View video</span>
+          <i class="icon-[tabler--player-play] text-base"></i>
+        </a>
+      </article>
+    </div>
+
+    <!-- Bottom band: Science & Technology Award (no inline thumbnail) -->
+    <div class="mt-8 group p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10 hover:shadow-xl">
+      <div class="min-w-0">
+        <div class="flex items-center gap-3 mb-2">
+          <i class="icon-[tabler--flask] text-xl opacity-80"></i>
+          <h3 class="text-lg font-semibold">Science &amp; Technology Award (Middle school)</h3>
+        </div>
+        <p class="text-white/80 text-sm leading-relaxed">
+          Recognized for top performance across science/technology — early proof that disciplined practice compounds.
+        </p>
+        <a
+          href="#lb-science"
+          class="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2
+                 font-medium text-white backdrop-blur-sm transition-all
+                 hover:bg-white/20 hover:shadow-lg hover:-translate-y-[1px]
+                 focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          <span>View image</span>
+          <i class="icon-[tabler--photo] text-base"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ============ CSS :target Lightboxes (no JS, no TS warnings) ============ -->
+<style>
+  .lb {
+    position: fixed;
+    inset: 0;
+    display: none;
+    place-items: center;
+    z-index: 60;
+  }
+  .lb:target {
+    display: grid;
+  }
+  .lb__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+  }
+  .lb__panel {
+    position: relative;
+    width: min(90vw, 1100px);
+    max-height: 85vh;
+    border-radius: 16px;
+    background: rgba(0,0,0,.9);
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 25px 60px rgba(0,0,0,.6);
+    padding: 12px;
+    overflow: hidden;
+  }
+  .lb__media {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+  .lb__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .75rem;
+    margin-top: .5rem;
+    color: rgba(255,255,255,.7);
+    font-size: .8rem;
+    padding: 0 .25rem .25rem .25rem;
+  }
+  .lb__close {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,.2);
+    background: rgba(255,255,255,.08);
+    border-radius: .75rem;
+    padding: .4rem .75rem;
+  }
+  .lb__close:hover {
+    background: rgba(255,255,255,.16);
+  }
+</style>
+
+<!-- Lightbox overlays (one per item) -->
+<div id="lb-bjj" class="lb" aria-modal="true" role="dialog" aria-label="BJJ medal">
+  <a href="#interests" class="lb__backdrop" aria-hidden="true"></a>
+  <div class="lb__panel">
+    <img src={bjj.src} alt="BJJ medal — Great Lakes Open (Bronze)" class="lb__media" loading="eager" decoding="async" />
+    <div class="lb__footer">
+      <span>Press Esc or click outside to close</span>
+      <a href="#interests" class="lb__close"><i class="icon-[tabler--x]"></i> Close</a>
+    </div>
+  </div>
+</div>
+
+<div id="lb-chess" class="lb" aria-modal="true" role="dialog" aria-label="Chess medal">
+  <a href="#interests" class="lb__backdrop" aria-hidden="true"></a>
+  <div class="lb__panel">
+    <img src={chess.src} alt="Chess silver medal" class="lb__media" loading="eager" decoding="async" />
+    <div class="lb__footer">
+      <span>Press Esc or click outside to close</span>
+      <a href="#interests" class="lb__close"><i class="icon-[tabler--x]"></i> Close</a>
+    </div>
+  </div>
+</div>
+
+<div id="lb-hike" class="lb" aria-modal="true" role="dialog" aria-label="Sleeping Giant summit photo">
+  <a href="#interests" class="lb__backdrop" aria-hidden="true"></a>
+  <div class="lb__panel">
+    <img src={hike.src} alt="Sleeping Giant summit — endurance hike" class="lb__media" loading="eager" decoding="async" />
+    <div class="lb__footer">
+      <span>Press Esc or click outside to close</span>
+      <a href="#interests" class="lb__close"><i class="icon-[tabler--x]"></i> Close</a>
+    </div>
+  </div>
+</div>
+
+<div id="lb-mu" class="lb" aria-modal="true" role="dialog" aria-label="Muscle-up video">
+  <a href="#interests" class="lb__backdrop" aria-hidden="true"></a>
+  <div class="lb__panel">
+    <video class="lb__media" controls playsinline preload="metadata">
+      <source src={MUvid} type="video/mp4" />
+    </video>
+    <div class="lb__footer">
+      <span>Press Esc or click outside to close</span>
+      <a href="#interests" class="lb__close"><i class="icon-[tabler--x]"></i> Close</a>
+    </div>
+  </div>
+</div>
+
+<div id="lb-science" class="lb" aria-modal="true" role="dialog" aria-label="Science & Technology Award">
+  <a href="#interests" class="lb__backdrop" aria-hidden="true"></a>
+  <div class="lb__panel">
+    <img src={scienceaward.src} alt="Science & Technology Award (Middle school)" class="lb__media" loading="eager" decoding="async" />
+    <div class="lb__footer">
+      <span>Press Esc or click outside to close</span>
+      <a href="#interests" class="lb__close"><i class="icon-[tabler--x]"></i> Close</a>
+    </div>
+  </div>
+</div>
+
+
+</Layout>

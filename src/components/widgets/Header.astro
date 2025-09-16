@@ -1,0 +1,78 @@
+---
+import Logo from '~/components/Logo.astro';
+import ToggleMenu from '~/components/common/ToggleMenu.astro';
+import Button from '~/components/ui/Button.astro';
+import type { CallToAction } from '~/types';
+
+type Link = { text?: string; href?: string; ariaLabel?: string; icon?: string };
+
+export interface Props {
+  id?: string;
+  links?: Array<Link>;
+  actions?: Array<CallToAction>;
+}
+
+const {
+  id = 'header',
+  links = [
+    { text: 'Home', href: '#hero' },
+    { text: 'About', href: '#about' },
+    { text: 'Work', href: '#work' },
+    { text: 'Education', href: '#education' },
+    { text: 'Certifications', href: '#certifications' },
+    { text: 'Projects', href: '#portfolio' },
+    { text: 'Interests', href: '#interests' },
+  ],
+  actions = [],
+} = Astro.props;
+---
+
+<header
+  role="banner"
+  {...(id ? { id } : {})}
+  class="left-0 right-0 w-full bg-black text-white border-b border-red-600/30 z-[1]"
+>
+  <div class="mx-auto w-full max-w-7xl px-3 py-3 md:px-6">
+    <div class="flex items-center justify-between">
+      <!-- hash-only so no full page reload -->
+      <a class="flex items-center" href="#hero" aria-label="Home">
+        <Logo />
+      </a>
+
+      <div class="md:hidden">
+        <ToggleMenu />
+      </div>
+
+      <nav class="hidden md:block" aria-label="Main navigation">
+        <ul class="flex items-center gap-1 text-sm font-semibold">
+          {links.map(({ text, href }) => (
+            <li>
+              <a class="px-4 py-3 text-white hover:text-red-400 transition-colors" href={href}>{text}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {actions?.length ? (
+        <div class="hidden md:block">
+          {actions.map((btnProps) => (
+            <Button
+              {...btnProps}
+              class="ml-2 py-2.5 px-6 font-semibold text-sm w-auto bg-black text-red-500 border border-red-500 hover:bg-red-600 hover:text-black transition-colors"
+            />
+          ))}
+        </div>
+      ) : null}
+    </div>
+  </div>
+</header>
+
+<style is:global>
+  /* Never slide the header off-screen */
+  #header.-translate-y-full,
+  #header.translate-y-[-100%],
+  #header[data-hidden="true"],
+  #header[data-scroll="down"] {
+    transform: none !important;
+  }
+</style>

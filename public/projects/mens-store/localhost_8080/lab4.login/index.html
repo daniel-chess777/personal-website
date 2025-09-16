@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Login Page</title>
+  <style>
+    body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; color: white; text-align: center; }
+    video { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; }
+    .container { max-width: 400px; margin: 120px auto; padding: 30px; background: rgba(0, 0, 0, 0.85); border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); }
+    h2 { margin-bottom: 15px; font-size: 2rem; letter-spacing: 1px; }
+    input { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 5px; background: rgba(255, 255, 255, 0.1); color: white; }
+    input::placeholder { color: rgba(255, 255, 255, 0.7); }
+    button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+    button:hover { background: #0056b3; }
+    .error-message { color: #ff4444; font-size: 1rem; margin-bottom: 10px; display: none; }
+    .hint { font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-top: 8px; }
+    code { background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <video autoplay loop muted playsinline>
+    <source src="https://videos.pexels.com/video-files/31062659/13276025_2560_1440_30fps.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="container">
+    <h2>Login</h2>
+    <div id="err" class="error-message">Invalid credentials. Try <code>admin/password</code> or <code>user/1234</code>.</div>
+
+    <!-- ⬇️ Neutralized: local demo login (no server POST) -->
+    <form id="demoLogin" method="post" action="#">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="hint">
+      Demo: <code>admin</code>/<code>password</code> or <code>user</code>/<code>1234</code>
+    </div>
+  </div>
+
+  <!-- Static login handler + link rewriter -->
+  <script>
+    (function () {
+      // Static roots inside your Astro site
+      const ROOT = '/projects/mens-store/localhost_8080';
+      const PATHS = {
+        login:    `${ROOT}/lab4.login/index.html`,
+        frontend: `${ROOT}/lab4.frontend/home.html`,
+        products: `${ROOT}/products.html`,
+        cart:     `${ROOT}/lab4.cart/cart.html`,
+      };
+
+      // Demo credentials (mirror of your Java setup)
+      const VALID = { admin: 'password', user: '1234' };
+
+      // 1) Local login (no server)
+      const form = document.getElementById('demoLogin') || document.querySelector('form');
+      const errBox = document.getElementById('err');
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const u = (form.querySelector('input[name="username"]') || {}).value || '';
+          const p = (form.querySelector('input[name="password"]') || {}).value || '';
+
+          if (VALID[u] === p) {
+            localStorage.setItem('mensStoreAuth', 'ok');
+            if (errBox) errBox.style.display = 'none';
+            window.location.href = PATHS.frontend; // go to mirrored home
+          } else {
+            if (errBox) errBox.style.display = 'block';
+          }
+        });
+      }
+
+      // 2) Rewrite any lingering absolute localhost links to mirrored static files
+      function rewriteLinks() {
+        const map = new Map([
+          ['http://localhost:8080/lab4.login',    PATHS.login],
+          ['http://localhost:8080/lab4.frontend', PATHS.frontend],
+          ['http://localhost:8080/products',      PATHS.products],
+          ['http://localhost:8080/lab4.cart',     PATHS.cart],
+        ]);
+
+        document.querySelectorAll('a[href]').forEach(a => {
+          for (const [from, to] of map) {
+            if (a.href.startsWith(from)) {
+              if (from.includes('lab4.frontend'))       a.href = PATHS.frontend;
+              else if (from.endsWith('/products'))       a.href = PATHS.products;
+              else if (from.includes('lab4.cart'))       a.href = PATHS.cart;
+              else                                       a.href = to;
+            }
+          }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', rewriteLinks);
+    })();
+  </script>
+</body>
+</html>

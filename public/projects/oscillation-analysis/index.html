@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oscillation Analysis Index</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { margin-bottom: 10px; }
+        #searchBox { width: 100%; padding: 8px; margin-bottom: 10px; font-size: 16px; }
+        #signalList { width: 100%; padding: 8px; font-size: 16px; }
+        iframe { width: 100%; height: 750px; border: 1px solid #ccc; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Oscillation Analysis Results</h1>
+    <input type="text" id="searchBox" placeholder="Search signal..." onkeyup="filterOptions()">
+    <select id="signalList" size="10" onchange="loadSignal()">
+        <option value="SCLPSTCLAIREC_02_G018CTG4______IA_IM.html">SCLPSTCLAIREC_02_G018CTG4______IA_IM</option>
+        <option value="SCLPSTCLAIREC_02_G018CTG4______IB_IM.html">SCLPSTCLAIREC_02_G018CTG4______IB_IM</option>
+        <option value="SCLPSTCLAIREC_02_G018CTG4______IC_IM.html">SCLPSTCLAIREC_02_G018CTG4______IC_IM</option>
+        <option value="SCLPSTCLAIREC_02_G018CTG4______IP_IM.html">SCLPSTCLAIREC_02_G018CTG4______IP_IM</option>
+        <option value="SCLPSTCLAIREC_02_G018CTG4______VA_VM.html">SCLPSTCLAIREC_02_G018CTG4______VA_VM</option>
+        <option value="SCLPSTCLAIREC_02_G018CTG4______VB_VM.html">SCLPSTCLAIREC_02_G018CTG4______VB_VM</option>
+        <option value="SCLPSTCLAIREC_02_G018CTG4______VC_VM.html">SCLPSTCLAIREC_02_G018CTG4______VC_VM</option>
+        <option value="SCLPSTCLAIREC_02_G018CTG4______VP_VM.html">SCLPSTCLAIREC_02_G018CTG4______VP_VM</option>
+        <option value="SCLPSTCLAIREC_03_G013STG4______IA_IM.html">SCLPSTCLAIREC_03_G013STG4______IA_IM</option>
+        <option value="SCLPSTCLAIREC_03_G013STG4______IB_IM.html">SCLPSTCLAIREC_03_G013STG4______IB_IM</option>
+        <option value="SCLPSTCLAIREC_03_G013STG4______IC_IM.html">SCLPSTCLAIREC_03_G013STG4______IC_IM</option>
+        <option value="SCLPSTCLAIREC_03_G013STG4______IP_IM.html">SCLPSTCLAIREC_03_G013STG4______IP_IM</option>
+        <option value="SCLPSTCLAIREC_03_G013STG4______VA_VM.html">SCLPSTCLAIREC_03_G013STG4______VA_VM</option>
+        <option value="SCLPSTCLAIREC_03_G013STG4______VB_VM.html">SCLPSTCLAIREC_03_G013STG4______VB_VM</option>
+        <option value="SCLPSTCLAIREC_03_G013STG4______VC_VM.html">SCLPSTCLAIREC_03_G013STG4______VC_VM</option>
+        <option value="SCLPSTCLAIREC_03_G013STG4______VP_VM.html">SCLPSTCLAIREC_03_G013STG4______VP_VM</option>
+        <option value="SCLPSTCLAIREC_04_G018CTG3______IA_IM.html">SCLPSTCLAIREC_04_G018CTG3______IA_IM</option>
+        <option value="SCLPSTCLAIREC_04_G018CTG3______IB_IM.html">SCLPSTCLAIREC_04_G018CTG3______IB_IM</option>
+        <option value="SCLPSTCLAIREC_04_G018CTG3______IC_IM.html">SCLPSTCLAIREC_04_G018CTG3______IC_IM</option>
+        <option value="SCLPSTCLAIREC_04_G018CTG3______IP_IM.html">SCLPSTCLAIREC_04_G018CTG3______IP_IM</option>
+        <option value="SCLPSTCLAIREC_04_G018CTG3______VA_VM.html">SCLPSTCLAIREC_04_G018CTG3______VA_VM</option>
+        <option value="SCLPSTCLAIREC_04_G018CTG3______VB_VM.html">SCLPSTCLAIREC_04_G018CTG3______VB_VM</option>
+        <option value="SCLPSTCLAIREC_04_G018CTG3______VC_VM.html">SCLPSTCLAIREC_04_G018CTG3______VC_VM</option>
+        <option value="SCLPSTCLAIREC_04_G018CTG3______VP_VM.html">SCLPSTCLAIREC_04_G018CTG3______VP_VM</option>
+        <option value="SCLPSTCLAIREC_05_G013STG3______IA_IM.html">SCLPSTCLAIREC_05_G013STG3______IA_IM</option>
+        <option value="SCLPSTCLAIREC_05_G013STG3______IB_IM.html">SCLPSTCLAIREC_05_G013STG3______IB_IM</option>
+        <option value="SCLPSTCLAIREC_05_G013STG3______IC_IM.html">SCLPSTCLAIREC_05_G013STG3______IC_IM</option>
+        <option value="SCLPSTCLAIREC_05_G013STG3______IP_IM.html">SCLPSTCLAIREC_05_G013STG3______IP_IM</option>
+        <option value="SCLPSTCLAIREC_05_G013STG3______VA_VM.html">SCLPSTCLAIREC_05_G013STG3______VA_VM</option>
+        <option value="SCLPSTCLAIREC_05_G013STG3______VB_VM.html">SCLPSTCLAIREC_05_G013STG3______VB_VM</option>
+        <option value="SCLPSTCLAIREC_05_G013STG3______VC_VM.html">SCLPSTCLAIREC_05_G013STG3______VC_VM</option>
+        <option value="SCLPSTCLAIREC_05_G013STG3______VP_VM.html">SCLPSTCLAIREC_05_G013STG3______VP_VM</option>
+        <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IP_PP.html">SCLPSTCLAIREC_02_Power of G018CTG4______IP_PP</option>
+        <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IP_PQ.html">SCLPSTCLAIREC_02_Power of G018CTG4______IP_PQ</option>
+        <option value="SCLPSTCLAIREC_03_Power of G013STG4______IP_PP.html">SCLPSTCLAIREC_03_Power of G013STG4______IP_PP</option>
+        <option value="SCLPSTCLAIREC_03_Power of G013STG4______IP_PQ.html">SCLPSTCLAIREC_03_Power of G013STG4______IP_PQ</option>
+        <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IP_PP.html">SCLPSTCLAIREC_04_Power of G018CTG3______IP_PP</option>
+        <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IP_PQ.html">SCLPSTCLAIREC_04_Power of G018CTG3______IP_PQ</option>
+        <option value="SCLPSTCLAIREC_05_Power of G013STG3______IP_PP.html">SCLPSTCLAIREC_05_Power of G013STG3______IP_PP</option>
+        <option value="SCLPSTCLAIREC_05_Power of G013STG3______IP_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IP_PQ</option>
+        <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IA_PP.html">SCLPSTCLAIREC_02_Power of G018CTG4______IA_PP</option>
+        <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IA_PQ.html">SCLPSTCLAIREC_02_Power of G018CTG4______IA_PQ</option>
+        <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IB_PP.html">SCLPSTCLAIREC_02_Power of G018CTG4______IB_PP</option>
+        <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IB_PQ.html">SCLPSTCLAIREC_02_Power of G018CTG4______IB_PQ</option>
+        <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IC_PP.html">SCLPSTCLAIREC_02_Power of G018CTG4______IC_PP</option>
+        <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IC_PQ.html">SCLPSTCLAIREC_02_Power of G018CTG4______IC_PQ</option>
+        <option value="SCLPSTCLAIREC_03_Power of G013STG4______IA_PP.html">SCLPSTCLAIREC_03_Power of G013STG4______IA_PP</option>
+        <option value="SCLPSTCLAIREC_03_Power of G013STG4______IA_PQ.html">SCLPSTCLAIREC_03_Power of G013STG4______IA_PQ</option>
+        <option value="SCLPSTCLAIREC_03_Power of G013STG4______IB_PP.html">SCLPSTCLAIREC_03_Power of G013STG4______IB_PP</option>
+        <option value="SCLPSTCLAIREC_03_Power of G013STG4______IB_PQ.html">SCLPSTCLAIREC_03_Power of G013STG4______IB_PQ</option>
+        <option value="SCLPSTCLAIREC_03_Power of G013STG4______IC_PP.html">SCLPSTCLAIREC_03_Power of G013STG4______IC_PP</option>
+        <option value="SCLPSTCLAIREC_03_Power of G013STG4______IC_PQ.html">SCLPSTCLAIREC_03_Power of G013STG4______IC_PQ</option>
+        <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IA_PP.html">SCLPSTCLAIREC_04_Power of G018CTG3______IA_PP</option>
+        <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IA_PQ.html">SCLPSTCLAIREC_04_Power of G018CTG3______IA_PQ</option>
+        <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IB_PP.html">SCLPSTCLAIREC_04_Power of G018CTG3______IB_PP</option>
+        <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IB_PQ.html">SCLPSTCLAIREC_04_Power of G018CTG3______IB_PQ</option>
+        <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IC_PP.html">SCLPSTCLAIREC_04_Power of G018CTG3______IC_PP</option>
+        <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IC_PQ.html">SCLPSTCLAIREC_04_Power of G018CTG3______IC_PQ</option>
+        <option value="SCLPSTCLAIREC_05_Power of G013STG3______IA_PP.html">SCLPSTCLAIREC_05_Power of G013STG3______IA_PP</option>
+        <option value="SCLPSTCLAIREC_05_Power of G013STG3______IA_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IA_PQ</option>
+        <option value="SCLPSTCLAIREC_05_Power of G013STG3______IB_PP.html">SCLPSTCLAIREC_05_Power of G013STG3______IB_PP</option>
+        <option value="SCLPSTCLAIREC_05_Power of G013STG3______IB_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IB_PQ</option>
+        <option value="SCLPSTCLAIREC_05_Power of G013STG3______IC_PP.html">SCLPSTCLAIREC_05_Power of G013STG3______IC_PP</option>
+        <option value="SCLPSTCLAIREC_05_Power of G013STG3______IC_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IC_PQ</option>
+
+    </select>
+    <iframe id="plotFrame" src=""></iframe>
+
+    <script>
+        function filterOptions() {
+            const input = document.getElementById('searchBox').value.toLowerCase();
+            const select = document.getElementById('signalList');
+            const options = select.options;
+
+            for (let i = 0; i < options.length; i++) {
+                const txt = options[i].text.toLowerCase();
+                options[i].style.display = txt.includes(input) ? "" : "none";
+            }
+        }
+
+        function loadSignal() {
+            const select = document.getElementById('signalList');
+            const frame = document.getElementById('plotFrame');
+            const selected = select.value;
+            if (selected) {
+                frame.src = selected;
+            }
+        }
+    </script>
+</body>
+</html>

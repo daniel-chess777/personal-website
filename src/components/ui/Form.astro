@@ -1,0 +1,128 @@
+---
+import Button from '~/components/ui/Button.astro';
+/** Props for this Form component */
+export interface Props {
+  inputs?: Array<{
+    type?: 'text' | 'email' | 'tel' | 'url';
+    name: string;
+    label?: string;
+    autocomplete?: string;
+    placeholder?: string;
+    required?: boolean;
+  }>;
+  textarea?: {
+    label?: string;
+    name?: string;          // defaults to "message"
+    rows?: number;          // defaults to 4
+    placeholder?: string;
+    required?: boolean;     // defaults to true
+  };
+  disclaimer?: { label: string };
+  button?: string | { text?: string };
+  description?: string;
+
+  /** NEW: where the form submits (e.g., your Formspree endpoint) */
+  action?: string;
+  /** NEW: method to submit with (default POST) */
+  method?: 'POST' | 'GET';
+}
+
+const {
+  inputs = [],
+  textarea,
+  disclaimer,
+  button = 'Contact us',
+  description = '',
+  action = 'https://formspree.io/f/xzzaqapd',  // set your default endpoint here (or pass via prop)
+  method = 'POST',
+} = Astro.props as Props;
+
+const buttonText = typeof button === 'string' ? button : (button?.text ?? 'Send');
+---
+
+<form action={action} method={method} class="grid gap-4">
+  <!-- Honeypot (reduces spam bots) -->
+  <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  {
+    inputs && inputs.map(({ type = 'text', name, label = '', autocomplete = 'on', placeholder = '', required }, idx) =>
+      name && (
+        <div class="mb-6" key={idx}>
+          {label && (
+            <label for={name} class="block text-sm font-medium">
+              {label}
+            </label>
+          )}
+          <input
+            type={type}
+            name={name}
+            id={name}
+            autocomplete={autocomplete}
+            placeholder={placeholder}
+            required={required ?? true}
+            class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+          />
+        </div>
+      )
+    )
+  }
+
+  {
+    textarea && (
+      <div>
+        <label for="textarea" class="block text-sm font-medium">
+          {textarea.label ?? 'Message'}
+        </label>
+        <textarea
+          id="textarea"
+          name={textarea.name ?? 'message'}
+          rows={textarea.rows ?? 4}
+          placeholder={textarea.placeholder}
+          required={textarea.required ?? true}
+          class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+        />
+      </div>
+    )
+  }
+
+  {
+    disclaimer && (
+      <div class="mt-3 flex items-start">
+        <div class="flex mt-0.5">
+          <input
+            id="disclaimer"
+            name="disclaimer"
+            type="checkbox"
+            class="cursor-pointer mt-1 py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+          />
+        </div>
+        <div class="ml-3">
+          <label for="disclaimer" class="cursor-pointer select-none text-sm text-gray-600 dark:text-gray-400">
+            {disclaimer.label}
+          </label>
+        </div>
+      </div>
+    )
+  }
+
+  <!-- Optional helpers -->
+  <input type="hidden" name="_subject" value="New message from your website" />
+  <!-- If you want a redirect banner after submit, you can add (then handle ?sent=1 on /contact):
+  <input type="hidden" name="redirect" value="/contact?sent=1" />
+  -->
+
+  <div class="mt-10 grid">
+    <!-- Your existing Button component -->
+    <Button variant="primary" type="submit">
+      {buttonText}
+    </Button>
+  </div>
+
+  {description && (
+    <div class="mt-3 text-center">
+      <p class="text-sm text-gray-600 dark:text-gray-400">{description}</p>
+    </div>
+  )}
+</form>
+
+

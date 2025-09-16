@@ -1,0 +1,34 @@
+---
+// src/components/widgets/Footer.astro
+---
+<footer class="border-t border-white/10 mt-0 py-8 text-center">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-3 text-white/80">
+    <!-- Signature line -->
+    <div class="flex items-center gap-2">
+      <span class="text-sm sm:text-base">
+        Website made by <strong class="text-white">Daniel Avella Ordonez</strong>
+      </span>
+      <span aria-hidden="true" class="text-lg sm:text-xl"></span>
+    </div>
+
+    <!-- Email -->
+    <a
+      href="mailto:daniel.avella777@gmail.com"
+      class="inline-flex items-center gap-2 text-white/80 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-md transition"
+    >
+      <span aria-hidden="true" class="text-base">✉️</span>
+      <span class="text-sm sm:text-base font-medium">daniel.avella777@gmail.com</span>
+    </a>
+
+    <!-- Location -->
+    <div class="inline-flex items-center gap-2 text-white/70">
+      <span aria-hidden="true" class="text-base">📍</span>
+      <span class="text-sm sm:text-base font-medium">Toronto, ON</span>
+    </div>
+
+    <!-- Tiny legal line -->
+    <div class="mt-1 text-xs text-white/50">
+      © {new Date().getFullYear()} All rights reserved.
+    </div>
+  </div>
+</footer>
