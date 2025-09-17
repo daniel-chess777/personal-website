@@ -10,27 +10,27 @@ import Steps from '~/components/widgets/Steps.astro';
 // import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import { getPermalink } from '~/utils/permalinks';
 import myPhoto from '../../assets/images/IMG_2996.jpg';
-import giphy from '../../assets/videos/giphy.gif';
+// import giphy from '../../assets/videos/giphy.gif';
 import heroStatue from '../../assets/images/hero-statue.png';
-import educationVideo from '../../assets/videos/education-bg.mp4';
+// import educationVideo from '../../assets/videos/education-bg.mp4';
 // import portfolioVideo from '../../assets/videos/portfolio-bg.mp4';
-import workVideo from '../../assets/videos/work-bg (1).mp4';
-import certificationVideo from '../../assets/videos/work-bg (2).mp4';
+// import workVideo from '../../assets/videos/work-bg (1).mp4';
+// import certificationVideo from '../../assets/videos/work-bg (2).mp4';
 import award from '../../assets/images/award.png';
 import ieso from '../../assets/images/ieso-logo.jpg';
-import iesovideo from '../../assets/videos/iesovid.mp4';
+// import iesovideo from '../../assets/videos/iesovid.mp4';
 import unilogo from '../../assets/images/toronto-metropolitan-university.jpg';
-import uniVideo from '../../assets/videos/clouds.mp4';
+// import uniVideo from '../../assets/videos/clouds.mp4';
 import elepic from '../../assets/images/ele.jpg';
-import elevid from '../../assets/videos/elevid.mp4';
+// import elevid from '../../assets/videos/elevid.mp4';
 import fpgapic from '../../assets/images/fpga.jpg';
-import fpgavid from '../../assets/videos/fpga.mp4';
-import Intrests from '../../assets/videos/Intrests.mp4';
+// import fpgavid from '../../assets/videos/fpga.mp4';
+// import Intrests from '../../assets/videos/Intrests.mp4';
 import bjj from '../../assets/images/bjj-bronze-aug2025.jpg';
 import chess from '../../assets/images/chess-silver.jpeg';
 import scienceaward from '../../assets/images/ScienceAward.jpg';
 import hike from '../../assets/images/sleeping-giant.jpg';
-import MUvid from '../../assets/videos/MU.mp4';
+// import MUvid from '../../assets/videos/MU.mp4';
 import certificate from '../../assets/images/DanielAvella.png';
 import volunteer from '../../assets/images/volunteer.jpg';
 
@@ -65,7 +65,7 @@ const metadata = {
   <section id="hero" class="relative">
     <!-- Background GIF -->
     <img
-      src={giphy.src}
+      src="/videos/giphy.gif"
       alt="Animated Background"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-20 transform-gpu will-change-transform parallax-bg"
     />
@@ -200,7 +200,7 @@ class: 'rounded-2xl border-4 border-red-600 shadow-xl will-change-transform tran
         class="absolute inset-0 w-full h-full object-cover z-0"
         style="animation: slowMotion 30s linear infinite;"
       >
-        <source src={workVideo} type="video/mp4" />
+        <source src="/videos/work-bg-1.mp4" type="video/mp4" />
       </video>
       <div class="absolute inset-0 bg-black/60 z-0"></div>
 
@@ -264,7 +264,7 @@ class: 'rounded-2xl border-4 border-red-600 shadow-xl will-change-transform tran
         class="absolute inset-0 w-full h-full object-cover z-0"
         style="animation: slowMotion 30s linear infinite;"
       >
-        <source src={educationVideo} type="video/mp4" />
+        <source src="/videos/education-bg.mp4" type="video/mp4" />
       </video>
       <div class="absolute inset-0 bg-black/60 z-0"></div>
 
@@ -410,7 +410,7 @@ title: `<span id="cert-anchor"></span>
     class="absolute inset-0 w-full h-full object-cover z-0"
     style="animation: slowMotion 30s linear infinite;"
   >
-    <source src={certificationVideo} type="video/mp4" />
+    <source src="/videos/work-bg-2.mp4" type="video/mp4" />
   </video>
   <div class="absolute inset-0 bg-black/60 z-0"></div>
 
@@ -717,7 +717,7 @@ title: `<span id="cert-anchor"></span>
           class="absolute inset-0 w-full h-full object-cover"
           aria-hidden="true"
         >
-          <source src={iesovideo} type="video/mp4" />
+          <source src="/videos/ieso.mp4" type="video/mp4" />
         </video>
         <div class="absolute inset-0 bg-black/65"></div>
       </div>
@@ -806,7 +806,7 @@ title: `<span id="cert-anchor"></span>
       style="animation: slowMotion 30s linear infinite;"
       aria-hidden="true"
     >
-      <source src={fpgavid} type="video/mp4" />
+      <source src="/videos/fpga.mp4" type="video/mp4" />
     </video>
     <div class="absolute inset-0 bg-black/65"></div>
   </div>
@@ -893,7 +893,7 @@ title: `<span id="cert-anchor"></span>
       style="animation: slowMotion 30s linear infinite;"
       aria-hidden="true"
     >
-      <source src={uniVideo} type="video/mp4" />
+      <source src="/videos/clouds.mp4" type="video/mp4" />
     </video>
     <div class="absolute inset-0 bg-black/60"></div>
   </div>
@@ -980,7 +980,7 @@ title: `<span id="cert-anchor"></span>
       style="animation: slowMotion 30s linear infinite;"
       aria-hidden="true"
     >
-      <source src={elevid} type="video/mp4" />
+      <source src="/videos/ele.mp4" type="video/mp4" />
     </video>
     <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/55 to-black/70"></div>
   </div>
@@ -1066,7 +1066,7 @@ title: `<span id="cert-anchor"></span>
       class="absolute inset-0 w-full h-full object-cover"
       aria-hidden="true"
     >
-      <source src={Intrests} type="video/mp4" />
+      <source src="/videos/interests.mp4" type="video/mp4" />
     </video>
     <div class="absolute inset-0 bg-black/65"></div>
   </div>
@@ -1313,8 +1313,7 @@ title: `<span id="cert-anchor"></span>
   <a href="#interests" class="lb__backdrop" aria-hidden="true"></a>
   <div class="lb__panel">
     <video class="lb__media" controls playsinline preload="metadata">
-      <source src={MUvid} type="video/mp4" />
-    </video>
+<source src="/videos/mu.mp4" type="video/mp4" />    </video>
     <div class="lb__footer">
       <span>Press Esc or click outside to close</span>
       <a href="#interests" class="lb__close"><i class="icon-[tabler--x]"></i> Close</a>
