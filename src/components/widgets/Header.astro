@@ -1,4 +1,4 @@
----
+--- 
 import Logo from '~/components/Logo.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
 import Button from '~/components/ui/Button.astro';
@@ -10,6 +10,7 @@ export interface Props {
   id?: string;
   links?: Array<Link>;
   actions?: Array<CallToAction>;
+  showMenuToggle?: boolean;
 }
 
 const {
@@ -24,6 +25,7 @@ const {
     { text: 'Interests', href: '#interests' },
   ],
   actions = [],
+  showMenuToggle = false,
 } = Astro.props;
 ---
 
@@ -34,13 +36,13 @@ const {
 >
   <div class="mx-auto w-full max-w-7xl px-3 py-3 md:px-6">
     <div class="flex items-center justify-between">
-      <!-- hash-only so no full page reload -->
       <a class="flex items-center" href="#hero" aria-label="Home">
         <Logo />
       </a>
 
+      <!-- Hide burger unless explicitly enabled -->
       <div class="md:hidden">
-        <ToggleMenu />
+        {showMenuToggle ? <ToggleMenu /> : null}
       </div>
 
       <nav class="hidden md:block" aria-label="Main navigation">
@@ -74,5 +76,19 @@ const {
   #header[data-hidden="true"],
   #header[data-scroll="down"] {
     transform: none !important;
+  }
+
+  /* Safety: if any mobile drawer/overlay got mounted by older code, hard-disable it on mobile */
+  @media (max-width: 767px) {
+    #menu,
+    [data-aw-toggle-menu-overlay],
+    .aw-menu,
+    .aw-drawer,
+    .drawer-backdrop {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      opacity: 0 !important;
+    }
   }
 </style>
