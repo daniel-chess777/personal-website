@@ -160,30 +160,38 @@
   </div>
 
 <script>
-/* Force the dropdown to navigate to the selected report file */
+/* BUILD: viewer v4 — robust path navigation */
 (function () {
   const select = document.getElementById('signalList');
   if (!select) return;
 
-  function go(file) {
-    if (!file) return;
-    // ensure ".html", even if an option was missing it
-    const filename = file.endsWith('.html') ? file : (file + '.html');
-    // build URL relative to the current folder (works with or without trailing slash)
-    const base = new URL('./', window.location.href);
-    const target = new URL(filename, base);
-    window.location.href = target.pathname; // keep same origin, no query noise
+  // Get the *folder* of the current page, whether the URL ends with:
+  // - /projects/oscillation-analysis
+  // - /projects/oscillation-analysis/
+  // - /projects/oscillation-analysis/index.html
+  function folderPath() {
+    const p = window.location.pathname;
+    if (p.endsWith('/')) return p;                // already a folder
+    if (p.endsWith('.html')) return p.replace(/[^/]+$/, ''); // strip filename
+    return p + '/';                                // treat as folder
   }
 
-  // navigate on change
-  select.addEventListener('change', () => go(select.value));
+  function go(file) {
+    if (!file) return;
+    const filename = file.endsWith('.html') ? file : (file + '.html');
+    const target = folderPath() + encodeURIComponent(filename);
+    // console.log({ file, filename, target });  // uncomment to debug in DevTools
+    window.location.assign(target);              // hard navigate to the file
+  }
 
-  // (optional) support Enter key when the select has focus
-  select.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') go(select.value);
-  });
+  // Navigate when the selection changes
+  select.addEventListener('change', () => go(select.value));
+  // Bonus: also allow double-click or Enter to navigate
+  select.addEventListener('dblclick', () => go(select.value));
+  select.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(select.value); });
 })();
 </script>
+
 
 
 
