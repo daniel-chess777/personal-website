@@ -159,34 +159,35 @@
   </div>
 
   <script>
-  function filterOptions() {
-    const q = document.getElementById('searchBox').value.toLowerCase();
-    const select = document.getElementById('signalList');
+(function(){
+  const select  = document.getElementById('signalList');
+  const search  = document.getElementById('searchBox');
+  const frame   = document.getElementById('plotFrame');
+  const content = document.getElementById('content');
+
+  function filterOptions(){
+    const q = search.value.toLowerCase();
     for (const opt of select.options) {
-      opt.style.display = opt.text.toLowerCase().includes(q) ? '' : 'none';
+      // Using "hidden" is more reliable than styling <option>
+      opt.hidden = !opt.text.toLowerCase().includes(q);
     }
   }
 
-  async function loadSignal(name) {
-    const frame   = document.getElementById('plotFrame');
-    const content = document.getElementById('content');
-    if (!name) name = document.getElementById('signalList').value;
+  async function loadSignal(name){
+    if (!name) name = select.value;
     if (!name) return;
 
-    // ✅ Robust directory base (works with /index.html and without trailing slash)
-    const dirPath = location.pathname.endsWith('/')
-      ? location.pathname
-      : location.pathname.replace(/[^/]*$/, ''); // strip last segment
-    const base = new URL(dirPath, location.origin);
+    // Your <option> values already include ".html"
+    const filename = name.trim();                         // e.g., "…IA_IM.html"
+    const base = new URL('./', window.location.href);     // stay in this directory even without trailing slash
+    const encoded = encodeURIComponent(filename);
 
-    // ✅ Your <option> values already contain ".html" → do NOT add it again
-    const filename = name; // e.g. "SCLP...IA_IM.html"
-
-    const sameDirUrl = new URL(encodeURIComponent(filename), base).pathname;
-    const signalsUrl = new URL(`signals/${encodeURIComponent(filename)}`, base).pathname;
+    // 1) prefer /signals/<file> if you later add fragments
+    const signalsUrl = new URL(`signals/${encoded}`, base).pathname;
+    // 2) fallback to files that live next to index.html (your current case)
+    const sameDirUrl = new URL(encoded, base).pathname;
 
     try {
-      // Try /signals/ subfolder first (if you ever move files there)
       const r1 = await fetch(signalsUrl, { cache: 'no-store' });
       if (r1.ok) {
         content.innerHTML = await r1.text();
@@ -194,7 +195,6 @@
         history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
         return;
       }
-      // Then try same folder (your current layout)
       const r2 = await fetch(sameDirUrl, { cache: 'no-store' });
       if (r2.ok) {
         content.innerHTML = await r2.text();
@@ -202,36 +202,30 @@
         history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
         return;
       }
-      // Fallback to iframe
-      frame.src = sameDirUrl;
-      frame.style.display = 'block';
-      content.innerHTML = '';
-      history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
-    } catch {
-      frame.src = sameDirUrl;
-      frame.style.display = 'block';
-      content.innerHTML = '';
-      history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
-    }
+    } catch (_) {}
+
+    // Fallback: show the full page in an iframe
+    frame.src = sameDirUrl;
+    frame.style.display = 'block';
+    content.innerHTML = '';
+    history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    // ✅ hook up search typing
-    document.getElementById('searchBox').addEventListener('input', filterOptions);
+  // wire up events
+  select.addEventListener('change', () => loadSignal());
+  search.addEventListener('input', filterOptions);
 
-    // ✅ load deep-linked signal (?signal=...)
-    const params = new URLSearchParams(location.search);
-    const existing = params.get('signal');
-    if (existing) {
-      const select = document.getElementById('signalList');
-      for (const opt of select.options) {
-        if (opt.value === existing) { select.value = existing; break; }
-      }
-      loadSignal(existing);
+  // restore selection from ?signal=...
+  const params = new URLSearchParams(window.location.search);
+  const existing = params.get('signal');
+  if (existing) {
+    for (const opt of select.options) {
+      if (opt.value === existing) { select.value = existing; break; }
     }
-  });
+    loadSignal(existing);
+  }
+})();
 </script>
-
 
 
 </body>
