@@ -150,87 +150,83 @@
       <a id="shareLink" class="btn" href="#">Copy direct link</a>
     </div>
 
-    <div id="signalView" class="viewer">
       <div class="muted">No signal selected.</div>
     </div>
+
+    <div id="content"></div>
+<iframe id="plotFrame" src="" style="width:100%;height:750px;border:1px solid #ccc;margin-top:20px;display:none;"></iframe>
+
   </div>
 
   <script>
-    const searchBox = document.getElementById('searchBox');
-    const selectEl  = document.getElementById('signalList');
-    const viewEl    = document.getElementById('signalView');
-    const shareLink = document.getElementById('shareLink');
+(function(){
+  const select  = document.getElementById('signalList');
+  const search  = document.getElementById('searchBox');
+  const frame   = document.getElementById('plotFrame');
+  const content = document.getElementById('content');
 
-    // We prefer fragments under /signals/, but also fall back to the same folder as index.html
-    const BASES = [
-      '/projects/oscillation-analysis/signals/',
-      '/projects/oscillation-analysis/'
-    ];
-
-    function msg(text) {
-      viewEl.innerHTML = `<div class="muted">${text}</div>`;
+  function filterOptions(){
+    const q = search.value.toLowerCase();
+    for (const opt of select.options) {
+      // Using "hidden" is more reliable than styling <option>
+      opt.hidden = !opt.text.toLowerCase().includes(q);
     }
+  }
 
-    async function fetchFirst(urls) {
-      for (const u of urls) {
-        const res = await fetch(u, { cache: 'no-store' });
-        if (res.ok) return res.text();
+  async function loadSignal(name){
+    if (!name) name = select.value;
+    if (!name) return;
+
+    // Your <option> values already include ".html"
+    const filename = name.trim();                         // e.g., "…IA_IM.html"
+    const base = new URL('./', window.location.href);     // stay in this directory even without trailing slash
+    const encoded = encodeURIComponent(filename);
+
+    // 1) prefer /signals/<file> if you later add fragments
+    const signalsUrl = new URL(`signals/${encoded}`, base).pathname;
+    // 2) fallback to files that live next to index.html (your current case)
+    const sameDirUrl = new URL(encoded, base).pathname;
+
+    try {
+      const r1 = await fetch(signalsUrl, { cache: 'no-store' });
+      if (r1.ok) {
+        content.innerHTML = await r1.text();
+        frame.style.display = 'none';
+        history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
+        return;
       }
-      throw new Error('Not found in any base');
-    }
-
-    async function loadSignal(filename) {
-      if (!filename) { msg('No signal selected.'); return; }
-      msg('Loading…');
-
-      // Try /signals/<file> first, then <file> next to index.html
-      const urls = BASES.map(b => b + encodeURIComponent(filename));
-      try {
-        const html = await fetchFirst(urls);
-        viewEl.innerHTML = html;
-
-        // Update hash for deep-linking
-        const url = new URL(window.location.href);
-        url.hash = `signal=${encodeURIComponent(filename)}`;
-        history.replaceState(null, '', url);
-
-        shareLink.href = url.toString();
-        shareLink.onclick = (e) => {
-          e.preventDefault();
-          navigator.clipboard?.writeText(url.toString());
-          shareLink.textContent = 'Copied!';
-          setTimeout(() => (shareLink.textContent = 'Copy direct link'), 1200);
-        };
-      } catch (err) {
-        console.error(err);
-        msg('Not found (did it deploy to /signals or this folder?)');
+      const r2 = await fetch(sameDirUrl, { cache: 'no-store' });
+      if (r2.ok) {
+        content.innerHTML = await r2.text();
+        frame.style.display = 'none';
+        history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
+        return;
       }
-    }
+    } catch (_) {}
 
-    // Filter the <select> options by text
-    function filterOptions() {
-      const q = searchBox.value.toLowerCase();
-      for (const opt of selectEl.options) {
-        const show = opt.text.toLowerCase().includes(q);
-        // Style display doesn't always hide <option> reliably across browsers,
-        // so toggle the "hidden" attribute which most modern browsers respect.
-        opt.hidden = !show;
-      }
-    }
+    // Fallback: show the full page in an iframe
+    frame.src = sameDirUrl;
+    frame.style.display = 'block';
+    content.innerHTML = '';
+    history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
+  }
 
-    // Bind events
-    searchBox.addEventListener('input', filterOptions);
-    selectEl.addEventListener('change', (e) => loadSignal(e.target.value));
+  // wire up events
+  select.addEventListener('change', () => loadSignal());
+  search.addEventListener('input', filterOptions);
 
-    // Deep-link support: #signal=<filename.html>
-    const m = window.location.hash.match(/signal=([^&]+)/);
-    if (m) {
-      const file = decodeURIComponent(m[1]);
-      // If the option exists, select it; otherwise still try to load it.
-      const idx = [...selectEl.options].findIndex(o => o.value === file);
-      if (idx >= 0) selectEl.selectedIndex = idx;
-      loadSignal(file);
+  // restore selection from ?signal=...
+  const params = new URLSearchParams(window.location.search);
+  const existing = params.get('signal');
+  if (existing) {
+    for (const opt of select.options) {
+      if (opt.value === existing) { select.value = existing; break; }
     }
-  </script>
+    loadSignal(existing);
+  }
+})();
+</script>
+
+
 </body>
 </html>
