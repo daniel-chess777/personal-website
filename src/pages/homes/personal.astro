@@ -33,11 +33,17 @@ import hike from '../../assets/images/sleeping-giant.jpg';
 // import MUvid from '../../assets/videos/MU.mp4';
 import certificate from '../../assets/images/DanielAvella.png';
 import volunteer from '../../assets/images/volunteer.jpg';
+import type { MetaData } from '~/types';
 
-const metadata = {
+const metadata: MetaData = {
   title: 'Personal Homepage',
-  openGraph: { images: ['/og.jpg'] },
-  twitter: { card: 'summary_large_image' },
+  openGraph: {
+    images: ['/og.jpg'], // ✅ array
+  },
+  twitter: {
+    cardType: 'summary_large_image', // ✅ cardType (not "card")
+    images: ['/og.jpg'],             // ✅ array (optional but allowed by your types)
+  },
 };
 ---
 

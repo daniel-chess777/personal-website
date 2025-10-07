@@ -51,14 +51,9 @@ export interface Taxonomy {
 
 export interface MetaData {
   title?: string;
-  ignoreTitleTemplate?: boolean;
-
   canonical?: string;
-
-  robots?: MetaDataRobots;
-
   description?: string;
-
+  robots?: { index?: boolean; follow?: boolean };
   openGraph?: MetaDataOpenGraph;
   twitter?: MetaDataTwitter;
 }
@@ -75,17 +70,21 @@ export interface MetaDataImage {
 }
 
 export interface MetaDataOpenGraph {
-  url?: string;
-  siteName?: string;
-  images?: Array<MetaDataImage>;
-  locale?: string;
+  images?: Array<
+    | string
+    | { url: string; width?: number; height?: number; alt?: string }
+  >;
   type?: string;
+  site_name?: string;
+  locale?: string;
+  // ...any other OG fields you use
 }
 
 export interface MetaDataTwitter {
-  handle?: string;
-  site?: string;
-  cardType?: string;
+  cardType?: 'summary' | 'summary_large_image' | 'app' | 'player';
+  images?: Array<string | { url: string; alt?: string }>;
+  site?: string;    // @site
+  handle?: string;  // @handle
 }
 
 export interface Image {

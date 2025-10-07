@@ -5,19 +5,28 @@ import type { Props as AstroSeoProps } from '@astrolib/seo';
 
 import { SITE, METADATA, I18N } from 'astrowind:config';
 import type { MetaData } from '~/types';
-import { getCanonical } from '~/utils/permalinks';
 import { adaptOpenGraphImages } from '~/utils/images';
 
+// NOTE: Do NOT import getCanonical here.
+// We'll compute a safe default ourselves.
 export type Props = MetaData;
 
+// Safe default canonical: only build if Astro.site exists (prod).
+// In dev, leave undefined to avoid "Invalid URL".
+const _path = Astro.url?.pathname ?? '/';
+const _defaultCanonical = Astro.site ? new URL(_path, Astro.site).toString() : undefined;
+
+// Read incoming props, then pick a canonical (incoming or default)
 const {
   title,
-  canonical = String(getCanonical(String(Astro.url.pathname))),
+  canonical: incomingCanonical,
   robots = {},
   description,
   openGraph = {},
   twitter = {},
 } = Astro.props as Props;
+
+const canonical = incomingCanonical ?? _defaultCanonical;
 
 const seoProps: AstroSeoProps = merge(
   {

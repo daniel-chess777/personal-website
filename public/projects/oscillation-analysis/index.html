@@ -1,21 +1,81 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Oscillation Analysis Index</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        h1 { margin-bottom: 10px; }
-        #searchBox { width: 100%; padding: 8px; margin-bottom: 10px; font-size: 16px; }
-        #signalList { width: 100%; padding: 8px; font-size: 16px; }
-        iframe { width: 100%; height: 750px; border: 1px solid #ccc; margin-top: 20px; }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Oscillation Analysis Index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --panel: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.12);
+      --text: #fff;
+      --muted: rgba(255,255,255,0.75);
+      --accent: #ef4444; /* red-500 */
+    }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    h1 { margin: 0 0 12px; font-size: clamp(20px, 3.5vw, 28px); font-weight: 700; }
+    .sub { color: var(--muted); margin-bottom: 16px; font-size: 14px; }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 10px;
+    }
+    @media (max-width: 900px) {
+      .controls { grid-template-columns: 1fr; }
+    }
+
+    #searchBox, #signalList {
+      width: 100%;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 15px;
+      outline: none;
+    }
+    #signalList {
+      height: 420px;
+    }
+
+    .viewer {
+      margin-top: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      min-height: 120px;
+      padding: 16px;
+      overflow: auto;
+    }
+    .muted { color: var(--muted); font-size: 14px; }
+
+    .bar {
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      margin-top: 16px;
+    }
+    .btn {
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--border);
+      background:transparent; color:var(--text);
+      padding:8px 12px; border-radius:10px; cursor:pointer;
+    }
+    .btn:hover { background: rgba(255,255,255,0.08); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
+  <div class="wrap">
     <h1>Oscillation Analysis Results</h1>
-    <input type="text" id="searchBox" placeholder="Search signal..." onkeyup="filterOptions()">
-    <select id="signalList" size="10" onchange="loadSignal()">
+    <div class="sub">Select a signal to render its report below (no page reload).</div>
+
+    <div class="controls">
+      <input type="text" id="searchBox" placeholder="Search signal… (type to filter)" />
+      <select id="signalList" size="18" aria-label="Signals">
+        <!-- Keep your existing list; values stay as filenames (with .html) -->
         <option value="SCLPSTCLAIREC_02_G018CTG4______IA_IM.html">SCLPSTCLAIREC_02_G018CTG4______IA_IM</option>
         <option value="SCLPSTCLAIREC_02_G018CTG4______IB_IM.html">SCLPSTCLAIREC_02_G018CTG4______IB_IM</option>
         <option value="SCLPSTCLAIREC_02_G018CTG4______IC_IM.html">SCLPSTCLAIREC_02_G018CTG4______IC_IM</option>
@@ -48,6 +108,7 @@
         <option value="SCLPSTCLAIREC_05_G013STG3______VB_VM.html">SCLPSTCLAIREC_05_G013STG3______VB_VM</option>
         <option value="SCLPSTCLAIREC_05_G013STG3______VC_VM.html">SCLPSTCLAIREC_05_G013STG3______VC_VM</option>
         <option value="SCLPSTCLAIREC_05_G013STG3______VP_VM.html">SCLPSTCLAIREC_05_G013STG3______VP_VM</option>
+
         <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IP_PP.html">SCLPSTCLAIREC_02_Power of G018CTG4______IP_PP</option>
         <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IP_PQ.html">SCLPSTCLAIREC_02_Power of G018CTG4______IP_PQ</option>
         <option value="SCLPSTCLAIREC_03_Power of G013STG4______IP_PP.html">SCLPSTCLAIREC_03_Power of G013STG4______IP_PP</option>
@@ -56,6 +117,7 @@
         <option value="SCLPSTCLAIREC_04_Power of G018CTG3______IP_PQ.html">SCLPSTCLAIREC_04_Power of G018CTG3______IP_PQ</option>
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IP_PP.html">SCLPSTCLAIREC_05_Power of G013STG3______IP_PP</option>
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IP_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IP_PQ</option>
+
         <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IA_PP.html">SCLPSTCLAIREC_02_Power of G018CTG4______IA_PP</option>
         <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IA_PQ.html">SCLPSTCLAIREC_02_Power of G018CTG4______IA_PQ</option>
         <option value="SCLPSTCLAIREC_02_Power of G018CTG4______IB_PP.html">SCLPSTCLAIREC_02_Power of G018CTG4______IB_PP</option>
@@ -80,30 +142,95 @@
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IB_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IB_PQ</option>
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IC_PP.html">SCLPSTCLAIREC_05_Power of G013STG3______IC_PP</option>
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IC_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IC_PQ</option>
+      </select>
+    </div>
 
-    </select>
-    <iframe id="plotFrame" src=""></iframe>
+    <div class="bar">
+      <div class="muted">Tip: Use the search box to filter, then click a row to render.</div>
+      <a id="shareLink" class="btn" href="#">Copy direct link</a>
+    </div>
 
-    <script>
-        function filterOptions() {
-            const input = document.getElementById('searchBox').value.toLowerCase();
-            const select = document.getElementById('signalList');
-            const options = select.options;
+    <div id="signalView" class="viewer">
+      <div class="muted">No signal selected.</div>
+    </div>
+  </div>
 
-            for (let i = 0; i < options.length; i++) {
-                const txt = options[i].text.toLowerCase();
-                options[i].style.display = txt.includes(input) ? "" : "none";
-            }
-        }
+  <script>
+    const searchBox = document.getElementById('searchBox');
+    const selectEl  = document.getElementById('signalList');
+    const viewEl    = document.getElementById('signalView');
+    const shareLink = document.getElementById('shareLink');
 
-        function loadSignal() {
-            const select = document.getElementById('signalList');
-            const frame = document.getElementById('plotFrame');
-            const selected = select.value;
-            if (selected) {
-                frame.src = selected;
-            }
-        }
-    </script>
+    // We prefer fragments under /signals/, but also fall back to the same folder as index.html
+    const BASES = [
+      '/projects/oscillation-analysis/signals/',
+      '/projects/oscillation-analysis/'
+    ];
+
+    function msg(text) {
+      viewEl.innerHTML = `<div class="muted">${text}</div>`;
+    }
+
+    async function fetchFirst(urls) {
+      for (const u of urls) {
+        const res = await fetch(u, { cache: 'no-store' });
+        if (res.ok) return res.text();
+      }
+      throw new Error('Not found in any base');
+    }
+
+    async function loadSignal(filename) {
+      if (!filename) { msg('No signal selected.'); return; }
+      msg('Loading…');
+
+      // Try /signals/<file> first, then <file> next to index.html
+      const urls = BASES.map(b => b + encodeURIComponent(filename));
+      try {
+        const html = await fetchFirst(urls);
+        viewEl.innerHTML = html;
+
+        // Update hash for deep-linking
+        const url = new URL(window.location.href);
+        url.hash = `signal=${encodeURIComponent(filename)}`;
+        history.replaceState(null, '', url);
+
+        shareLink.href = url.toString();
+        shareLink.onclick = (e) => {
+          e.preventDefault();
+          navigator.clipboard?.writeText(url.toString());
+          shareLink.textContent = 'Copied!';
+          setTimeout(() => (shareLink.textContent = 'Copy direct link'), 1200);
+        };
+      } catch (err) {
+        console.error(err);
+        msg('Not found (did it deploy to /signals or this folder?)');
+      }
+    }
+
+    // Filter the <select> options by text
+    function filterOptions() {
+      const q = searchBox.value.toLowerCase();
+      for (const opt of selectEl.options) {
+        const show = opt.text.toLowerCase().includes(q);
+        // Style display doesn't always hide <option> reliably across browsers,
+        // so toggle the "hidden" attribute which most modern browsers respect.
+        opt.hidden = !show;
+      }
+    }
+
+    // Bind events
+    searchBox.addEventListener('input', filterOptions);
+    selectEl.addEventListener('change', (e) => loadSignal(e.target.value));
+
+    // Deep-link support: #signal=<filename.html>
+    const m = window.location.hash.match(/signal=([^&]+)/);
+    if (m) {
+      const file = decodeURIComponent(m[1]);
+      // If the option exists, select it; otherwise still try to load it.
+      const idx = [...selectEl.options].findIndex(o => o.value === file);
+      if (idx >= 0) selectEl.selectedIndex = idx;
+      loadSignal(file);
+    }
+  </script>
 </body>
 </html>
