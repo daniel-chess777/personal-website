@@ -159,74 +159,32 @@
 
   </div>
 
-  <script>
-(function(){
-  const select  = document.getElementById('signalList');
-  const search  = document.getElementById('searchBox');
-  const frame   = document.getElementById('plotFrame');
-  const content = document.getElementById('content');
+<script>
+/* Force the dropdown to navigate to the selected report file */
+(function () {
+  const select = document.getElementById('signalList');
+  if (!select) return;
 
-  function filterOptions(){
-    const q = search.value.toLowerCase();
-    for (const opt of select.options) {
-      // Using "hidden" is more reliable than styling <option>
-      opt.hidden = !opt.text.toLowerCase().includes(q);
-    }
+  function go(file) {
+    if (!file) return;
+    // ensure ".html", even if an option was missing it
+    const filename = file.endsWith('.html') ? file : (file + '.html');
+    // build URL relative to the current folder (works with or without trailing slash)
+    const base = new URL('./', window.location.href);
+    const target = new URL(filename, base);
+    window.location.href = target.pathname; // keep same origin, no query noise
   }
 
-  async function loadSignal(name){
-    if (!name) name = select.value;
-    if (!name) return;
+  // navigate on change
+  select.addEventListener('change', () => go(select.value));
 
-    // Your <option> values already include ".html"
-    const filename = name.trim();                         // e.g., "…IA_IM.html"
-    const base = new URL('./', window.location.href);     // stay in this directory even without trailing slash
-    const encoded = encodeURIComponent(filename);
-
-    // 1) prefer /signals/<file> if you later add fragments
-    const signalsUrl = new URL(`signals/${encoded}`, base).pathname;
-    // 2) fallback to files that live next to index.html (your current case)
-    const sameDirUrl = new URL(encoded, base).pathname;
-
-    try {
-      const r1 = await fetch(signalsUrl, { cache: 'no-store' });
-      if (r1.ok) {
-        content.innerHTML = await r1.text();
-        frame.style.display = 'none';
-        history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
-        return;
-      }
-      const r2 = await fetch(sameDirUrl, { cache: 'no-store' });
-      if (r2.ok) {
-        content.innerHTML = await r2.text();
-        frame.style.display = 'none';
-        history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
-        return;
-      }
-    } catch (_) {}
-
-    // Fallback: show the full page in an iframe
-    frame.src = sameDirUrl;
-    frame.style.display = 'block';
-    content.innerHTML = '';
-    history.replaceState(null, '', `?signal=${encodeURIComponent(filename)}`);
-  }
-
-  // wire up events
-  select.addEventListener('change', () => loadSignal());
-  search.addEventListener('input', filterOptions);
-
-  // restore selection from ?signal=...
-  const params = new URLSearchParams(window.location.search);
-  const existing = params.get('signal');
-  if (existing) {
-    for (const opt of select.options) {
-      if (opt.value === existing) { select.value = existing; break; }
-    }
-    loadSignal(existing);
-  }
+  // (optional) support Enter key when the select has focus
+  select.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') go(select.value);
+  });
 })();
 </script>
+
 
 
 </body>
