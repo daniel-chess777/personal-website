@@ -129,72 +129,53 @@
   </div>
 
   <script>
-  (function(){
-    const select  = document.getElementById('signalList');
-    const search  = document.getElementById('searchBox');
-    const frame   = document.getElementById('plotFrame');
-    const content = document.getElementById('content');
+/* Minimal, robust navigation: go directly to the file. */
+(function () {
+  const select = document.getElementById('signalList');
+  const search = document.getElementById('searchBox');
 
-    function ensureHtml(name) {
-      if (!name) return '';
-      const trimmed = name.trim();
-      return trimmed.toLowerCase().endsWith('.html') ? trimmed : (trimmed + '.html');
+  function ensureHtml(name) {
+    if (!name) return '';
+    const t = name.trim();
+    return t.toLowerCase().endsWith('.html') ? t : (t + '.html');
+  }
+
+  function go(file) {
+    const filename = ensureHtml(file);
+    if (!filename) return;
+    // Build absolute URL relative to this folder (handles spaces automatically)
+    const base = new URL('./', window.location.href);
+    const target = new URL(filename, base);
+    // Navigate to the file (no innerHTML, no fetch, no iframe)
+    window.location.assign(target.href);
+  }
+
+  select.addEventListener('change', () => go(select.value));
+  select.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') go(select.value);
+  });
+
+  // simple search filter
+  function filter() {
+    const q = (search?.value || '').toLowerCase();
+    for (const opt of select.options) {
+      opt.hidden = !opt.text.toLowerCase().includes(q);
     }
+  }
+  if (search) search.addEventListener('input', filter);
 
-    function filterOptions(){
-      const q = (search?.value || '').toLowerCase();
-      for (const opt of select.options) {
-        opt.hidden = !opt.text.toLowerCase().includes(q);
-      }
+  // Support direct links like ?signal=FILE.html
+  const params = new URLSearchParams(window.location.search);
+  const existing = params.get('signal');
+  if (existing) {
+    const want = ensureHtml(existing);
+    for (const opt of select.options) {
+      if (ensureHtml(opt.value) === want) { select.value = opt.value; break; }
     }
+    go(want);
+  }
+})();
+</script>
 
-    async function loadSignal(name){
-      const chosen = ensureHtml(name || select.value);
-      if (!chosen) return;
-
-      const base = new URL('./', window.location.href);
-      const signalsUrl = new URL(`signals/${chosen}`, base).pathname;
-      const sameDirUrl = new URL(chosen, base).pathname;
-
-      try {
-        const r1 = await fetch(signalsUrl, { cache: 'no-store' });
-        if (r1.ok) {
-          content.innerHTML = await r1.text();
-          frame.style.display = 'none';
-          history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
-          return;
-        }
-        const r2 = await fetch(sameDirUrl, { cache: 'no-store' });
-        if (r2.ok) {
-          content.innerHTML = await r2.text();
-          frame.style.display = 'none';
-          history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
-          return;
-        }
-      } catch (_) {}
-
-      // Fallback: show full page in an iframe
-      frame.src = sameDirUrl;
-      frame.style.display = 'block';
-      content.innerHTML = '';
-      history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
-    }
-
-    select.addEventListener('change', () => loadSignal());
-    if (search) search.addEventListener('input', filterOptions);
-
-    const params = new URLSearchParams(window.location.search);
-    const existing = params.get('signal');
-    if (existing) {
-      const want = ensureHtml(existing);
-      for (const opt of select.options) {
-        if (ensureHtml(opt.value) === want) { select.value = opt.value; break; }
-      }
-      loadSignal(want);
-    }
-
-    console.log('viewer v5');
-  })();
-  </script>
 </body>
 </html>
