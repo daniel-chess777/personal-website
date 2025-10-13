@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: viewer v3 -->
+<!-- BUILD: viewer v5 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -12,57 +12,23 @@
       --border: rgba(255,255,255,0.12);
       --text: #fff;
       --muted: rgba(255,255,255,0.75);
-      --accent: #ef4444; /* red-500 */
+      --accent: #ef4444;
     }
     html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; }
     .wrap { max-width: 1200px; margin: 0 auto; padding: 20px; }
     h1 { margin: 0 0 12px; font-size: clamp(20px, 3.5vw, 28px); font-weight: 700; }
     .sub { color: var(--muted); margin-bottom: 16px; font-size: 14px; }
-
-    .controls {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 10px;
-    }
-    @media (max-width: 900px) {
-      .controls { grid-template-columns: 1fr; }
-    }
-
+    .controls { display: grid; grid-template-columns: 1fr 320px; gap: 10px; }
+    @media (max-width: 900px) { .controls { grid-template-columns: 1fr; } }
     #searchBox, #signalList {
-      width: 100%;
-      background: var(--panel);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 15px;
-      outline: none;
+      width: 100%; background: var(--panel); color: var(--text);
+      border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 15px; outline: none;
     }
-    #signalList {
-      height: 420px;
-    }
-
-    .viewer {
-      margin-top: 16px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      min-height: 120px;
-      padding: 16px;
-      overflow: auto;
-    }
+    #signalList { height: 420px; }
+    .viewer { margin-top: 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; min-height: 120px; padding: 16px; overflow: auto; }
     .muted { color: var(--muted); font-size: 14px; }
-
-    .bar {
-      display:flex; align-items:center; justify-content:space-between; gap: 10px;
-      margin-top: 16px;
-    }
-    .btn {
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid var(--border);
-      background:transparent; color:var(--text);
-      padding:8px 12px; border-radius:10px; cursor:pointer;
-    }
+    .bar { display:flex; align-items:center; justify-content:space-between; gap: 10px; margin-top: 16px; }
+    .btn { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border); background:transparent; color:var(--text); padding:8px 12px; border-radius:10px; cursor:pointer; }
     .btn:hover { background: rgba(255,255,255,0.08); }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
@@ -76,8 +42,8 @@
     <div class="controls">
       <input type="text" id="searchBox" placeholder="Search signal… (type to filter)" />
       <select id="signalList" size="18" aria-label="Signals">
-        <!-- Keep your existing list; values stay as filenames (with .html) -->
-        <option value="SCLPSTCLAIREC_02_G018CTG4______IA_IM.html">SCLPSTCLAIREC_02_G018CTG4______IA_IM</option>
+        <!-- your existing <option> list unchanged -->
+         <option value="SCLPSTCLAIREC_02_G018CTG4______IA_IM.html">SCLPSTCLAIREC_02_G018CTG4______IA_IM</option>
         <option value="SCLPSTCLAIREC_02_G018CTG4______IB_IM.html">SCLPSTCLAIREC_02_G018CTG4______IB_IM</option>
         <option value="SCLPSTCLAIREC_02_G018CTG4______IC_IM.html">SCLPSTCLAIREC_02_G018CTG4______IC_IM</option>
         <option value="SCLPSTCLAIREC_02_G018CTG4______IP_IM.html">SCLPSTCLAIREC_02_G018CTG4______IP_IM</option>
@@ -143,6 +109,8 @@
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IB_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IB_PQ</option>
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IC_PP.html">SCLPSTCLAIREC_05_Power of G013STG3______IC_PP</option>
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IC_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IC_PQ</option>
+
+        <!-- ... keep the rest of your options as-is ... -->
       </select>
     </div>
 
@@ -151,91 +119,82 @@
       <a id="shareLink" class="btn" href="#">Copy direct link</a>
     </div>
 
+    <!-- Properly nested viewer -->
+    <div id="signalView" class="viewer">
       <div class="muted">No signal selected.</div>
     </div>
 
     <div id="content"></div>
-<iframe id="plotFrame" src="" style="width:100%;height:750px;border:1px solid #ccc;margin-top:20px;display:none;"></iframe>
-
+    <iframe id="plotFrame" src="" style="width:100%;height:750px;border:1px solid #ccc;margin-top:20px;display:none;"></iframe>
   </div>
 
   <script>
-(function(){
-  const select  = document.getElementById('signalList');
-  const search  = document.getElementById('searchBox');
-  const frame   = document.getElementById('plotFrame');
-  const content = document.getElementById('content');
+  (function(){
+    const select  = document.getElementById('signalList');
+    const search  = document.getElementById('searchBox');
+    const frame   = document.getElementById('plotFrame');
+    const content = document.getElementById('content');
 
-  function ensureHtml(name) {
-    if (!name) return '';
-    const trimmed = name.trim();
-    return trimmed.toLowerCase().endsWith('.html') ? trimmed : (trimmed + '.html');
-  }
-
-  function filterOptions(){
-    const q = (search?.value || '').toLowerCase();
-    for (const opt of select.options) {
-      opt.hidden = !opt.text.toLowerCase().includes(q);
+    function ensureHtml(name) {
+      if (!name) return '';
+      const trimmed = name.trim();
+      return trimmed.toLowerCase().endsWith('.html') ? trimmed : (trimmed + '.html');
     }
-  }
 
-  async function loadSignal(name){
-    const chosen = ensureHtml(name || select.value);
-    if (!chosen) return;
-
-    // stay in current folder even if URL lacks trailing slash
-    const base = new URL('./', window.location.href);
-
-    // 1) prefer /signals/<file> if you later add fragments
-    const signalsUrl = new URL(`signals/${chosen}`, base).pathname;
-    // 2) fallback to files that live next to index.html (your current case)
-    const sameDirUrl = new URL(chosen, base).pathname;
-
-    try {
-      const r1 = await fetch(signalsUrl, { cache: 'no-store' });
-      if (r1.ok) {
-        content.innerHTML = await r1.text();
-        frame.style.display = 'none';
-        history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
-        return;
+    function filterOptions(){
+      const q = (search?.value || '').toLowerCase();
+      for (const opt of select.options) {
+        opt.hidden = !opt.text.toLowerCase().includes(q);
       }
-      const r2 = await fetch(sameDirUrl, { cache: 'no-store' });
-      if (r2.ok) {
-        content.innerHTML = await r2.text();
-        frame.style.display = 'none';
-        history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
-        return;
-      }
-    } catch (_) {}
-
-    // Fallback: show the full page in an iframe (works even if fetch blocked)
-    frame.src = sameDirUrl;
-    frame.style.display = 'block';
-    content.innerHTML = '';
-    history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
-  }
-
-  // wire up events
-  select.addEventListener('change', () => loadSignal());
-  if (search) search.addEventListener('input', filterOptions);
-
-  // restore selection from ?signal=...
-  const params = new URLSearchParams(window.location.search);
-  const existing = params.get('signal');
-  if (existing) {
-    const want = ensureHtml(existing);
-    for (const opt of select.options) {
-      if (ensureHtml(opt.value) === want) { select.value = opt.value; break; }
     }
-    loadSignal(want);
-  }
 
-  // Optional: tiny version marker so we can spot this file in prod
-  console.log('viewer v5');
-})();
-</script>
+    async function loadSignal(name){
+      const chosen = ensureHtml(name || select.value);
+      if (!chosen) return;
 
+      const base = new URL('./', window.location.href);
+      const signalsUrl = new URL(`signals/${chosen}`, base).pathname;
+      const sameDirUrl = new URL(chosen, base).pathname;
 
+      try {
+        const r1 = await fetch(signalsUrl, { cache: 'no-store' });
+        if (r1.ok) {
+          content.innerHTML = await r1.text();
+          frame.style.display = 'none';
+          history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
+          return;
+        }
+        const r2 = await fetch(sameDirUrl, { cache: 'no-store' });
+        if (r2.ok) {
+          content.innerHTML = await r2.text();
+          frame.style.display = 'none';
+          history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
+          return;
+        }
+      } catch (_) {}
 
+      // Fallback: show full page in an iframe
+      frame.src = sameDirUrl;
+      frame.style.display = 'block';
+      content.innerHTML = '';
+      history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
+    }
+
+    select.addEventListener('change', () => loadSignal());
+    if (search) search.addEventListener('input', filterOptions);
+
+    const params = new URLSearchParams(window.location.search);
+    const existing = params.get('signal');
+    if (existing) {
+      const want = ensureHtml(existing);
+      for (const opt of select.options) {
+        if (ensureHtml(opt.value) === want) { select.value = opt.value; break; }
+      }
+      loadSignal(want);
+    }
+
+    console.log('viewer v5');
+  })();
+  </script>
 </body>
 </html>
