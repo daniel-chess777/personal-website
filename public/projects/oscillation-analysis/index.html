@@ -159,39 +159,81 @@
 
   </div>
 
-<script>
-/* BUILD: viewer v4 — robust path navigation */
-(function () {
-  const select = document.getElementById('signalList');
-  if (!select) return;
+  <script>
+(function(){
+  const select  = document.getElementById('signalList');
+  const search  = document.getElementById('searchBox');
+  const frame   = document.getElementById('plotFrame');
+  const content = document.getElementById('content');
 
-  // Get the *folder* of the current page, whether the URL ends with:
-  // - /projects/oscillation-analysis
-  // - /projects/oscillation-analysis/
-  // - /projects/oscillation-analysis/index.html
-  function folderPath() {
-    const p = window.location.pathname;
-    if (p.endsWith('/')) return p;                // already a folder
-    if (p.endsWith('.html')) return p.replace(/[^/]+$/, ''); // strip filename
-    return p + '/';                                // treat as folder
+  function ensureHtml(name) {
+    if (!name) return '';
+    const trimmed = name.trim();
+    return trimmed.toLowerCase().endsWith('.html') ? trimmed : (trimmed + '.html');
   }
 
-  function go(file) {
-    if (!file) return;
-    const filename = file.endsWith('.html') ? file : (file + '.html');
-    const target = folderPath() + encodeURIComponent(filename);
-    // console.log({ file, filename, target });  // uncomment to debug in DevTools
-    window.location.assign(target);              // hard navigate to the file
+  function filterOptions(){
+    const q = (search?.value || '').toLowerCase();
+    for (const opt of select.options) {
+      opt.hidden = !opt.text.toLowerCase().includes(q);
+    }
   }
 
-  // Navigate when the selection changes
-  select.addEventListener('change', () => go(select.value));
-  // Bonus: also allow double-click or Enter to navigate
-  select.addEventListener('dblclick', () => go(select.value));
-  select.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(select.value); });
+  async function loadSignal(name){
+    const chosen = ensureHtml(name || select.value);
+    if (!chosen) return;
+
+    // stay in current folder even if URL lacks trailing slash
+    const base = new URL('./', window.location.href);
+
+    // 1) prefer /signals/<file> if you later add fragments
+    const signalsUrl = new URL(`signals/${chosen}`, base).pathname;
+    // 2) fallback to files that live next to index.html (your current case)
+    const sameDirUrl = new URL(chosen, base).pathname;
+
+    try {
+      const r1 = await fetch(signalsUrl, { cache: 'no-store' });
+      if (r1.ok) {
+        content.innerHTML = await r1.text();
+        frame.style.display = 'none';
+        history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
+        return;
+      }
+      const r2 = await fetch(sameDirUrl, { cache: 'no-store' });
+      if (r2.ok) {
+        content.innerHTML = await r2.text();
+        frame.style.display = 'none';
+        history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
+        return;
+      }
+    } catch (_) {}
+
+    // Fallback: show the full page in an iframe (works even if fetch blocked)
+    frame.src = sameDirUrl;
+    frame.style.display = 'block';
+    content.innerHTML = '';
+    history.replaceState(null, '', `?signal=${encodeURIComponent(chosen)}`);
+  }
+
+  // wire up events
+  select.addEventListener('change', () => loadSignal());
+  if (search) search.addEventListener('input', filterOptions);
+
+  // restore selection from ?signal=...
+  const params = new URLSearchParams(window.location.search);
+  const existing = params.get('signal');
+  if (existing) {
+    const want = ensureHtml(existing);
+    for (const opt of select.options) {
+      if (ensureHtml(opt.value) === want) { select.value = opt.value; break; }
+    }
+    loadSignal(want);
+  }
+
+  // Optional: tiny version marker so we can spot this file in prod
+  console.log('viewer v5');
 })();
 </script>
-
 
 
 

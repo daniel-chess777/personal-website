@@ -8,37 +8,21 @@
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
-
-    {
-      "source": "/projects/oscillation-analysis",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
-      ]
-    },
-    {
-      "source": "/projects/oscillation-analysis/",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
-      ]
-    },
-    {
-      "source": "/projects/oscillation-analysis/index.html",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
-      ]
-    },
     {
       "source": "/projects/oscillation-analysis/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" }
       ]
     }
   ],
-  "redirects": [
+  "rewrites": [
     {
-      "source": "/projects/oscillation-analysis",
-      "destination": "/projects/oscillation-analysis/index.html",
-      "permanent": false
+      "source": "/projects/oscillation-analysis/signals/:name",
+      "destination": "/projects/oscillation-analysis/signals/:name.html"
+    },
+    {
+      "source": "/projects/oscillation-analysis/:name",
+      "destination": "/projects/oscillation-analysis/:name.html"
     }
   ]
 }
