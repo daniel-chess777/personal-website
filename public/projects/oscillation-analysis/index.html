@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: viewer v5 -->
+<!-- BUILD: viewer v6 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -25,8 +25,6 @@
       border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 15px; outline: none;
     }
     #signalList { height: 420px; }
-    .viewer { margin-top: 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; min-height: 120px; padding: 16px; overflow: auto; }
-    .muted { color: var(--muted); font-size: 14px; }
     .bar { display:flex; align-items:center; justify-content:space-between; gap: 10px; margin-top: 16px; }
     .btn { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border); background:transparent; color:var(--text); padding:8px 12px; border-radius:10px; cursor:pointer; }
     .btn:hover { background: rgba(255,255,255,0.08); }
@@ -37,13 +35,13 @@
 <body>
   <div class="wrap">
     <h1>Oscillation Analysis Results</h1>
-    <div class="sub">Select a signal to render its report below (no page reload).</div>
+    <div class="sub">Type to filter, then pick a signal to open its report.</div>
 
     <div class="controls">
       <input type="text" id="searchBox" placeholder="Search signal… (type to filter)" />
       <select id="signalList" size="18" aria-label="Signals">
-        <!-- your existing <option> list unchanged -->
-         <option value="SCLPSTCLAIREC_02_G018CTG4______IA_IM.html">SCLPSTCLAIREC_02_G018CTG4______IA_IM</option>
+        <!-- Keep your existing list exactly as-is (values include .html) -->
+        <option value="SCLPSTCLAIREC_02_G018CTG4______IA_IM.html">SCLPSTCLAIREC_02_G018CTG4______IA_IM</option>
         <option value="SCLPSTCLAIREC_02_G018CTG4______IB_IM.html">SCLPSTCLAIREC_02_G018CTG4______IB_IM</option>
         <option value="SCLPSTCLAIREC_02_G018CTG4______IC_IM.html">SCLPSTCLAIREC_02_G018CTG4______IC_IM</option>
         <option value="SCLPSTCLAIREC_02_G018CTG4______IP_IM.html">SCLPSTCLAIREC_02_G018CTG4______IP_IM</option>
@@ -109,73 +107,61 @@
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IB_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IB_PQ</option>
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IC_PP.html">SCLPSTCLAIREC_05_Power of G013STG3______IC_PP</option>
         <option value="SCLPSTCLAIREC_05_Power of G013STG3______IC_PQ.html">SCLPSTCLAIREC_05_Power of G013STG3______IC_PQ</option>
-
-        <!-- ... keep the rest of your options as-is ... -->
       </select>
     </div>
 
     <div class="bar">
-      <div class="muted">Tip: Use the search box to filter, then click a row to render.</div>
+      <div class="sub">Tip: Press Enter to open the highlighted signal.</div>
       <a id="shareLink" class="btn" href="#">Copy direct link</a>
     </div>
-
-    <!-- Properly nested viewer -->
-    <div id="signalView" class="viewer">
-      <div class="muted">No signal selected.</div>
-    </div>
-
-    <div id="content"></div>
-    <iframe id="plotFrame" src="" style="width:100%;height:750px;border:1px solid #ccc;margin-top:20px;display:none;"></iframe>
   </div>
 
   <script>
-/* Minimal, robust navigation: go directly to the file. */
-(function () {
-  const select = document.getElementById('signalList');
-  const search = document.getElementById('searchBox');
+  (function () {
+    // Absolute folder path so we never depend on trailing slashes
+    const FOLDER = '/projects/oscillation-analysis/';
 
-  function ensureHtml(name) {
-    if (!name) return '';
-    const t = name.trim();
-    return t.toLowerCase().endsWith('.html') ? t : (t + '.html');
-  }
+    const select = document.getElementById('signalList');
+    const search = document.getElementById('searchBox');
 
-  function go(file) {
-    const filename = ensureHtml(file);
-    if (!filename) return;
-    // Build absolute URL relative to this folder (handles spaces automatically)
-    const base = new URL('./', window.location.href);
-    const target = new URL(filename, base);
-    // Navigate to the file (no innerHTML, no fetch, no iframe)
-    window.location.assign(target.href);
-  }
-
-  select.addEventListener('change', () => go(select.value));
-  select.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') go(select.value);
-  });
-
-  // simple search filter
-  function filter() {
-    const q = (search?.value || '').toLowerCase();
-    for (const opt of select.options) {
-      opt.hidden = !opt.text.toLowerCase().includes(q);
+    function ensureHtml(name) {
+      if (!name) return '';
+      const t = name.trim();
+      return t.toLowerCase().endsWith('.html') ? t : (t + '.html');
     }
-  }
-  if (search) search.addEventListener('input', filter);
 
-  // Support direct links like ?signal=FILE.html
-  const params = new URLSearchParams(window.location.search);
-  const existing = params.get('signal');
-  if (existing) {
-    const want = ensureHtml(existing);
-    for (const opt of select.options) {
-      if (ensureHtml(opt.value) === want) { select.value = opt.value; break; }
+    function go(file) {
+      const filename = ensureHtml(file);
+      if (!filename) return;
+      // Encode just the filename (handles spaces) and navigate
+      window.location.assign(FOLDER + encodeURIComponent(filename));
     }
-    go(want);
-  }
-})();
-</script>
 
+    // navigate when user picks an option
+    select.addEventListener('change', () => go(select.value));
+    select.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(select.value); });
+
+    // simple search filter
+    function filter() {
+      const q = (search?.value || '').toLowerCase();
+      for (const opt of select.options) opt.hidden = !opt.text.toLowerCase().includes(q);
+    }
+    if (search) search.addEventListener('input', filter);
+
+    // support direct links like ?signal=FILE.html
+    const params = new URLSearchParams(window.location.search);
+    const existing = params.get('signal');
+    if (existing) {
+      const want = ensureHtml(existing);
+      for (const opt of select.options) {
+        if (ensureHtml(opt.value) === want) { select.value = opt.value; break; }
+      }
+      go(want);
+    }
+
+    // tiny marker so we can confirm in prod
+    console.log('viewer v6');
+  })();
+  </script>
 </body>
 </html>
